@@ -1,4 +1,4 @@
-const CACHE='jan-training-v2.0.0';
+const CACHE='jan-training-v2.0.3';
 const CORE=['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install',event=>{
@@ -20,7 +20,7 @@ self.addEventListener('message',event=>{
 self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET') return;
   const url=new URL(event.request.url);
-  if(url.origin!==self.location.origin) return; // external food APIs stay network-only
+  if(url.origin!==self.location.origin) return;
 
   if(event.request.mode==='navigate'){
     event.respondWith(
