@@ -1,4 +1,4 @@
-const CACHE='jan-training-v2.0.3';
+const CACHE='jan-training-v2.0.4';
 const CORE=['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install',event=>{
