@@ -1,0 +1,17 @@
+COALFORGED 2.0.6.1 – VISUAL IMAGE POLISH TEST REPORT
+
+11/11 checks passed
+
+[PASS] APP_VERSION 2.0.6.1
+[PASS] Storage key unchanged
+[PASS] Image polish block present
+[PASS] Data-format markers preserved
+[PASS] Referenced COALFORGED assets exist
+[PASS] Manifest valid
+[PASS] SW cache 2.0.6.1
+[PASS] sw.js syntax
+[PASS] Inline JS syntax (7 blocks)
+[PASS] No JS logic changes beyond version literal
+[PASS] CSS brace balance
+
+Browser note: Full Chromium E2E/preview rendering could not be used in this environment because browser navigation is administratively blocked. Static syntax, asset, manifest, service-worker and JS-diff checks were used instead.

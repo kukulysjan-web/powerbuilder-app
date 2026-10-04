@@ -1,58 +1,43 @@
-# COALFORGED 2.0.6 – Design 2.0
+# COALFORGED 2.0.6.2 – Cinematic Warm Image Treatment
 
-**Release:** 2.0.6  
-**Focus:** Visual Fidelity / UX Redesign  
-**Basis:** 2.0.5.1
+**Release:** 2.0.6.2  
+**Focus:** Image Treatment Feintuning  
+**Basis:** 2.0.6 FINAL
 
-## Was neu ist
+## Änderung
 
-COALFORGED 2.0.6 setzt den vollständigen Design-2.0-Pass um. Die vorhandene Trainings-, Ernährungs-, Progressions- und Storage-Logik bleibt bestehen; der Schwerpunkt dieses Releases liegt auf visueller Hierarchie, Screenflows und mobiler Bedienung.
+Kleiner visueller Polish-Pass für die bereits eingebauten COALFORGED-Bilder. Die Bildwelt ist bewusst etwas weniger entsättigt und minimal präsenter, ohne die dunkle, ruhige Heritage-Forge-Hierarchie zu verändern.
 
-### Splash & Onboarding
-- neuer COALFORGED Splash
-- First-Run-Onboarding mit drei Slides
-- lokaler Onboarding-State ohne Account- oder Cloud-Zwang
+### Angepasst
+- Home Hero und Today's Training: etwas mehr Sättigung und Helligkeit
+- Training Hero, Workout Cards und Exercise Thumbnails: leicht mehr Farbinformation und Präsenz
+- Nutrition Hero und Meal Thumbnails: weniger grau, weiterhin klar untergeordnet zur Daten-UI
+- More / Profil und sekundäre Atmosphärenbilder: subtil angeglichen
+- Onboarding-Bildbehandlung: gleiche visuelle Sprache wie die App
 
-### Home
-- kompakte Begrüßung statt großem Slogan-Hero
-- Today's Training als primäre Aktion
-- kompakte Nutrition-, Progress- und Coach-Module
-
-### Training
-- neue Training-Übersicht
-- Workout-Detail mit Exercise List
-- fokussiertes Satzlogging für Gewicht / Wiederholungen / RIR
-- Workout-Abschluss-Screen
-- bestehende Kilo/Kilo-, Peter- und Revenge-Engine bleibt darunter erhalten
-
-### Nutrition
-- Today / Woche / Analyse als klarer Flow
-- großer Kalorienring und kompakte Makros
-- Meal Cards mit Bildern
-- Food Search und Food Detail auf Mobile als fokussierte Screens
-- What Fits Next? integriert
-- BLS/OFF, Rezepte, Templates und Nutrition Engine bleiben erhalten
-
-### Progress & Analyse
-- neue Tabs: Übersicht / Kraft / Körper / Ernährung / Compliance
-- Analyse vor Dateneingabe
-- e1RM-, Gewichts-, Nutrition- und Adherence-Trends kompakt dargestellt
-- bestehende Datenwerkzeuge bleiben unter Daten & Einstellungen erreichbar
-
-### Mehr / Einstellungen
-- kompakter Profilkopf
-- Ziele, Körperdaten, Training, Ernährung und Coach als Listenstruktur
-- App Einstellungen, Benachrichtigungen, Darstellung, Datenschutz und Hilfe
-- kein Fake-Account, kein Fake-Premium-Layer
+### Unverändert
+- Trainingslogik
+- Nutrition Engine
+- Coach-Logik
+- Datenformat v6
+- Nutrition Schema v2
+- LocalStorage-Key `janTrainingUnifiedV1`
+- Navigation, Layout und Screenflows
 
 ## Technik
-- APP_VERSION: `2.0.6`
-- Service-Worker-Cache: `coalforged-v2.0.6`
-- LocalStorage-Key unverändert: `janTrainingUnifiedV1`
-- Datenformat unverändert: v6
-- Nutrition Schema unverändert: v2
-- Bilder weiterhin direkt im Repository-Root
-- persistenter BLS-Cache bleibt von SW-Cleanup ausgenommen
+- `APP_VERSION`: `2.0.6.2`
+- Service-Worker-Cache: `coalforged-v2.0.6.2`
+- keine Datenmigration
+- keine neuen Assets
+- bestehende Root-Bildpfade bleiben unverändert
 
 ## Update-Hinweis
-Für GitHub Pages den Inhalt des Release-ZIPs in den Repository-Root hochladen und vorhandene Dateien ersetzen. Danach die Web-App einmal neu laden bzw. das bereitgestellte PWA-Update übernehmen.
+Den Inhalt des ZIPs in den GitHub-Repository-Root hochladen und vorhandene Dateien ersetzen. Danach die Seite neu laden bzw. das PWA-Update übernehmen.
+
+## 2.0.6.2 Changes
+
+- Home, Training and Nutrition imagery is now less desaturated.
+- Warm highlight treatment was increased slightly for a more cinematic forge feel.
+- Meal thumbnails and training thumbnails retain more natural color.
+- Background image treatment remains subdued enough to protect readability.
+- Service worker cache was bumped so the update can be installed cleanly.
