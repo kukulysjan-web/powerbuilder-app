@@ -1,53 +1,37 @@
-# COALFORGED 2.0.6.2 – Cinematic Warm Image Treatment
+# COALFORGED 2.0.6.3 – Universal Exercise Registry & Exercise-State Fix
 
-**Release:** 2.0.6.2  
-**Focus:** Image Treatment Feintuning  
-**Basis:** 2.0.6 FINAL
+**Release:** 2.0.6.3  
+**Basis:** 2.0.6.2 Cinematic Warm
 
-## Änderung
+## Ziel
 
-Kleiner visueller Polish-Pass für die bereits eingebauten COALFORGED-Bilder. Die Bildwelt ist bewusst etwas weniger entsättigt und minimal präsenter, ohne die dunkle, ruhige Heritage-Forge-Hierarchie zu verändern.
+Trainingsprogramme besitzen weiterhin ihre quellentreue Prescription (Sätze, Wiederholungen, RIR, Pausen und Progressionsregeln). Die konkrete Übung besitzt dagegen eine universelle Identität und ihre eigenen Leistungsdaten.
 
-### Angepasst
-- Home Hero und Today's Training: etwas mehr Sättigung und Helligkeit
-- Training Hero, Workout Cards und Exercise Thumbnails: leicht mehr Farbinformation und Präsenz
-- Nutrition Hero und Meal Thumbnails: weniger grau, weiterhin klar untergeordnet zur Daten-UI
-- More / Profil und sekundäre Atmosphärenbilder: subtil angeglichen
-- Onboarding-Bildbehandlung: gleiche visuelle Sprache wie die App
+## Änderungen
 
-### Unverändert
-- Trainingslogik
-- Nutrition Engine
-- Coach-Logik
-- Datenformat v6
-- Nutrition Schema v2
-- LocalStorage-Key `janTrainingUnifiedV1`
-- Navigation, Layout und Screenflows
+- universelle Exercise Registry für Original- und eigene Übungen
+- stabile Exercise IDs; eigene Übungen behalten ihre Identität auch beim Umbenennen
+- Kilo/Kilo, Peter und Revenge referenzieren konkrete Übungen über diese Identität
+- Gewichte, tatsächlich absolvierte Reps, RIR, Notizen/Cues und Verlauf werden je konkreter Übung getrennt
+- Wechsel innerhalb desselben Slots übernimmt nicht mehr die Sätze/Gewichte einer anderen Übung
+- Wechsel zurück auf eine zuvor verwendete Übung stellt deren eigenen Zustand wieder her
+- Kilo/Kilo Progressionszustände werden künftig übungsspezifisch getrennt
+- bestehende Daten werden bestmöglich in das neue Modell migriert
+- alte `exerciseWeights` bleiben als Kompatibilitätsspiegel bestehen; kanonisch ist die Registry-Performance
+- Übungsbibliothek zeigt die universelle Registry inklusive Originalübungen und letztem bekannten Gewicht
+- Datenformat auf v7 angehoben; Nutrition Schema bleibt v2
 
-## Technik
-- `APP_VERSION`: `2.0.6.2`
-- Service-Worker-Cache: `coalforged-v2.0.6.2`
-- keine Datenmigration
-- keine neuen Assets
-- bestehende Root-Bildpfade bleiben unverändert
+## Schutzregeln
 
-## Update-Hinweis
-Den Inhalt des ZIPs in den GitHub-Repository-Root hochladen und vorhandene Dateien ersetzen. Danach die Seite neu laden bzw. das PWA-Update übernehmen.
+- Kilo/Kilo-, Peter- und Revenge-Programmlogik wurde nicht verändert.
+- Sätze/Reps bleiben Eigentum der jeweiligen Program Prescription.
+- Die Registry trennt Identität/Performance der Übung von der Programmlogik.
+- Storage-Key bleibt `janTrainingUnifiedV1`.
 
-## 2.0.6.2 Changes
+## PWA
 
-- Home, Training and Nutrition imagery is now less desaturated.
-- Warm highlight treatment was increased slightly for a more cinematic forge feel.
-- Meal thumbnails and training thumbnails retain more natural color.
-- Background image treatment remains subdued enough to protect readability.
-- Service worker cache was bumped so the update can be installed cleanly.
-
-- Home nutrition card restores the cinematic food background.
-- Home coach/insight card restores the mountain atmosphere with readable masking.
-
-## Home image placement correction
-
-- Nutrition background is attached directly to the Home nutrition card so it cannot disappear behind the card background.
-- Mountain artwork was moved from the Coach Insight card to the Home Progress card.
-- Coach Insight is image-free again.
-- Version remains 2.0.6.2; this is a correction inside the same release candidate.
+- `APP_VERSION`: `2.0.6.3`
+- Service-Worker-Cache: `coalforged-v2.0.6.3`
+- Datenformat: `7`
+- Nutrition Schema: `2`
+- Exercise Registry Schema: `1`

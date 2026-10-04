@@ -1,4 +1,4 @@
-const CACHE='coalforged-v2.0.6.2';
+const CACHE='coalforged-v2.0.6.3';
 const PERSISTENT_CACHES=['jan-training-bls-v4.0-2025'];
 const CORE=['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png','./coalforged-mark.svg','./cf-home-athlete.webp','./cf-home-plates.webp','./cf-forge-texture.webp','./cf-mountain.webp','./cf-training-athlete.webp','./cf-training-plates.webp','./cf-meal-dinner.webp','./cf-meal-lunch.webp','./cf-meal-breakfast.webp','./cf-nutrition-hero.webp'];
 

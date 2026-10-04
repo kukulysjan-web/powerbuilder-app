@@ -1,0 +1,29 @@
+COALFORGED 2.0.6.3 – Universal Exercise Registry & Exercise-State Fix
+Test report
+
+Passed:
+- Full inline JavaScript syntax check via Node.js
+- Universal Exercise Registry migration harness
+- Kilo/Kilo: Langhantelrudern and Kabelrudern maintain independent logs/weights
+- Kilo/Kilo: Kabel-Trizepsextension and Skullcrusher maintain independent logs/weights
+- Switching back restores the previous exercise-specific state
+- Peter: same-slot variants maintain independent logs
+- Revenge: same-slot variants maintain independent logs
+- Stable exercise IDs are distinct between different exercises
+- APP_VERSION = 2.0.6.3
+- Service worker cache = coalforged-v2.0.6.3
+- Storage key remains janTrainingUnifiedV1
+- Data format = v7
+- Nutrition schema = v2
+- Exercise Registry schema = v1
+- Required image/PWA assets present
+- Home nutrition and progress background assets preserved
+- manifest.json parses successfully
+
+Not claimed:
+- Full Chromium end-to-end test. The container browser has previously been unreliable; this release was validated with syntax/static checks and a targeted state/migration harness.
+
+Program protection:
+- Kilo/Kilo, Peter and Revenge source prescription data was not edited.
+- Sets/reps/RIR/rest/progression rules remain program-owned.
+- 2.0.6.3 changes exercise identity, logging separation and performance storage only.
