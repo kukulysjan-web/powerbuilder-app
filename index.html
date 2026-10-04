@@ -1295,7 +1295,10 @@ html.cf-onboarding-open,html.cf-onboarding-open body{overflow:hidden!important;o
 .cf206-today-meta strong{color:var(--cf-text-primary,#f1ece5);font:600 10px/1.1 var(--cf-font-data,Rajdhani,sans-serif)}
 .cf206-primary{width:100%;min-height:46px!important;margin-top:12px!important;border-radius:10px!important;border-color:var(--cf-ember,#d5682f)!important;background:linear-gradient(90deg,#e38245,#d5682f)!important;color:#120b07!important;font:700 11px/1 var(--cf-font-display,Sora,sans-serif)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22)!important}
 
-.cf206-nutrition{padding:13px}
+.cf206-nutrition{position:relative;padding:13px;overflow:hidden;isolation:isolate}
+.cf206-nutrition::before{content:"";position:absolute;inset:0 0 0 48%;z-index:-2;background-image:linear-gradient(90deg,#151516 0%,rgba(21,21,22,.88) 24%,rgba(21,21,22,.30) 78%),linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.62)),url('./cf-nutrition-hero.webp');background-repeat:no-repeat;background-size:100% 100%,100% 100%,cover;background-position:center,center,62% center;filter:saturate(.96) contrast(.99) brightness(.82) sepia(.04);opacity:.62;mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 100%)}
+.cf206-nutrition::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 88% 18%,rgba(229,154,86,.09),transparent 30%),linear-gradient(180deg,transparent 58%,rgba(15,15,16,.84) 100%)}
+.cf206-nutrition>*{position:relative;z-index:1}
 .cf206-energyrow{display:grid;grid-template-columns:minmax(0,1fr) 78px;gap:12px;align-items:center;margin-top:10px}
 .cf206-energycopy strong{display:block;font:600 29px/.95 var(--cf-font-data,Rajdhani,sans-serif);color:var(--cf-text-primary,#f1ece5);font-variant-numeric:tabular-nums}
 .cf206-energycopy span{display:block;margin-top:3px;font:400 10px/1.3 var(--cf-font-body,Manrope,sans-serif);color:var(--cf-text-secondary,#b9b0a6)}
@@ -1320,7 +1323,7 @@ html.cf-onboarding-open,html.cf-onboarding-open body{overflow:hidden!important;o
 .cf206-spark svg{width:100%;height:100%;display:block}
 
 .cf206-coach{position:relative;padding:12px 40px 12px 12px;background:linear-gradient(135deg,#171718,#121213);overflow:hidden}
-.cf206-coach::after{content:"";position:absolute;inset:auto -20px -26px 44%;height:70px;background:url('./cf-mountain.webp') right bottom/cover no-repeat;opacity:.12;filter:saturate(.4)}
+.cf206-coach::after{content:"";position:absolute;inset:auto -8px -12px 37%;height:102px;background:linear-gradient(90deg,transparent 0,rgba(18,18,19,.08) 28%,rgba(18,18,19,.22) 100%),url('./cf-mountain.webp') right 58%/cover no-repeat;opacity:.34;filter:saturate(.9) contrast(.99) brightness(.82) sepia(.04);mask-image:linear-gradient(90deg,transparent 0,#000 28%,#000 100%)}
 .cf206-coach strong{position:relative;z-index:1;display:block;font:600 12px/1.2 var(--cf-font-display,Sora,sans-serif);color:var(--cf-text-primary,#f1ece5)}
 .cf206-coach p{position:relative;z-index:1;margin:4px 0 0;font:400 9px/1.42 var(--cf-font-body,Manrope,sans-serif);color:var(--cf-text-secondary,#b9b0a6)}
 .cf206-coach button{position:absolute;z-index:2;right:7px;top:50%;transform:translateY(-50%);width:28px;min-width:28px!important;height:28px;min-height:28px!important;padding:0!important;border-radius:9px!important;border:1px solid #3a302b!important;background:#1b1816!important;color:var(--cf-glow,#e69a56)!important;font-size:17px!important;box-shadow:none!important}
@@ -1353,6 +1356,7 @@ html.cf-onboarding-open,html.cf-onboarding-open body{overflow:hidden!important;o
 
 <style>
 /* ---------- COALFORGED 2.0.6.2 · CINEMATIC WARM IMAGE TREATMENT ----------
+   Home atmospheric layers restored: nutrition hero + mountain insight.
    Subtle fidelity pass: slightly more color and presence while preserving
    dark-premium hierarchy and text/interaction dominance. No layout or logic changes.
    -------------------------------------------------------------------------- */
@@ -1369,7 +1373,7 @@ html.cf-onboarding-open,html.cf-onboarding-open body{overflow:hidden!important;o
 .cf-more-b7-hero:before{filter:saturate(.94) brightness(.92) contrast(.99);opacity:.35}
 .cf206-home-greeting::before{filter:saturate(.9) contrast(.98) brightness(.86) sepia(.05)}
 .cf206-today::before{filter:saturate(.88) contrast(.98) brightness(.84) sepia(.05)}
-.cf206-coach::after{filter:saturate(.72) brightness(.92) contrast(.98);opacity:.18}
+.cf206-coach::after{filter:saturate(.9) brightness(.82) contrast(.99) sepia(.04);opacity:.34}
 .cf206t-workout:before{opacity:.88;filter:saturate(.96) contrast(.99) brightness(.9) sepia(.05)}
 .cf206t-thumb{filter:saturate(.92) brightness(.84) contrast(.99)}
 .cf206t-workout-detail:before{opacity:.82;filter:saturate(.94) contrast(.99) brightness(.9) sepia(.05)}
