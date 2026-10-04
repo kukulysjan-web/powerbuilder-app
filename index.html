@@ -1295,9 +1295,9 @@ html.cf-onboarding-open,html.cf-onboarding-open body{overflow:hidden!important;o
 .cf206-today-meta strong{color:var(--cf-text-primary,#f1ece5);font:600 10px/1.1 var(--cf-font-data,Rajdhani,sans-serif)}
 .cf206-primary{width:100%;min-height:46px!important;margin-top:12px!important;border-radius:10px!important;border-color:var(--cf-ember,#d5682f)!important;background:linear-gradient(90deg,#e38245,#d5682f)!important;color:#120b07!important;font:700 11px/1 var(--cf-font-display,Sora,sans-serif)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22)!important}
 
-.cf206-nutrition{position:relative;padding:13px;overflow:hidden;isolation:isolate}
-.cf206-nutrition::before{content:"";position:absolute;inset:0 0 0 48%;z-index:-2;background-image:linear-gradient(90deg,#151516 0%,rgba(21,21,22,.88) 24%,rgba(21,21,22,.30) 78%),linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.62)),url('./cf-nutrition-hero.webp');background-repeat:no-repeat;background-size:100% 100%,100% 100%,cover;background-position:center,center,62% center;filter:saturate(.96) contrast(.99) brightness(.82) sepia(.04);opacity:.62;mask-image:linear-gradient(90deg,transparent 0,#000 22%,#000 100%)}
-.cf206-nutrition::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 88% 18%,rgba(229,154,86,.09),transparent 30%),linear-gradient(180deg,transparent 58%,rgba(15,15,16,.84) 100%)}
+.cf206-nutrition{position:relative;padding:13px;overflow:hidden;isolation:isolate;background-color:#151516;background-image:linear-gradient(90deg,#151516 0%,#151516 43%,rgba(21,21,22,.93) 55%,rgba(21,21,22,.52) 76%,rgba(21,21,22,.72) 100%),linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.56)),url('./cf-nutrition-hero.webp');background-repeat:no-repeat;background-size:100% 100%,100% 100%,54% 100%;background-position:center,center,right center}
+.cf206-nutrition::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 88% 18%,rgba(229,154,86,.12),transparent 30%),linear-gradient(180deg,transparent 58%,rgba(15,15,16,.58) 100%)}
+.cf206-nutrition::after{content:none}
 .cf206-nutrition>*{position:relative;z-index:1}
 .cf206-energyrow{display:grid;grid-template-columns:minmax(0,1fr) 78px;gap:12px;align-items:center;margin-top:10px}
 .cf206-energycopy strong{display:block;font:600 29px/.95 var(--cf-font-data,Rajdhani,sans-serif);color:var(--cf-text-primary,#f1ece5);font-variant-numeric:tabular-nums}
@@ -1314,7 +1314,10 @@ html.cf-onboarding-open,html.cf-onboarding-open body{overflow:hidden!important;o
 .cf206-macrotrack{height:4px;margin-top:6px;border-radius:999px;background:#303034;overflow:hidden}
 .cf206-macrotrack i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--cf-copper,#a86e45),var(--cf-glow,#e69a56))}
 
-.cf206-progress{padding:13px}
+.cf206-progress{position:relative;padding:13px;overflow:hidden;isolation:isolate;background:#151516}
+.cf206-progress::before{content:"";position:absolute;inset:0 0 0 46%;z-index:0;pointer-events:none;background-image:linear-gradient(90deg,#151516 0%,rgba(21,21,22,.90) 25%,rgba(21,21,22,.42) 72%,rgba(21,21,22,.58) 100%),url('./cf-mountain.webp');background-repeat:no-repeat;background-size:100% 100%,cover;background-position:center,right 58%;opacity:.52;filter:saturate(.9) contrast(.99) brightness(.82) sepia(.04);mask-image:linear-gradient(90deg,transparent 0,#000 24%,#000 100%)}
+.cf206-progress::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,transparent 48%,rgba(15,15,16,.42) 100%)}
+.cf206-progress>*{position:relative;z-index:1}
 .cf206-progressrow{display:grid;grid-template-columns:minmax(0,1fr) 124px;gap:12px;align-items:end;margin-top:8px}
 .cf206-progress-value{font:600 26px/.95 var(--cf-font-data,Rajdhani,sans-serif);color:var(--cf-text-primary,#f1ece5);font-variant-numeric:tabular-nums}
 .cf206-progress-label{margin-top:3px;font:500 9px/1.25 var(--cf-font-body,Manrope,sans-serif);color:var(--cf-text-secondary,#b9b0a6)}
@@ -1323,7 +1326,7 @@ html.cf-onboarding-open,html.cf-onboarding-open body{overflow:hidden!important;o
 .cf206-spark svg{width:100%;height:100%;display:block}
 
 .cf206-coach{position:relative;padding:12px 40px 12px 12px;background:linear-gradient(135deg,#171718,#121213);overflow:hidden}
-.cf206-coach::after{content:"";position:absolute;inset:auto -8px -12px 37%;height:102px;background:linear-gradient(90deg,transparent 0,rgba(18,18,19,.08) 28%,rgba(18,18,19,.22) 100%),url('./cf-mountain.webp') right 58%/cover no-repeat;opacity:.34;filter:saturate(.9) contrast(.99) brightness(.82) sepia(.04);mask-image:linear-gradient(90deg,transparent 0,#000 28%,#000 100%)}
+.cf206-coach::after{content:none}
 .cf206-coach strong{position:relative;z-index:1;display:block;font:600 12px/1.2 var(--cf-font-display,Sora,sans-serif);color:var(--cf-text-primary,#f1ece5)}
 .cf206-coach p{position:relative;z-index:1;margin:4px 0 0;font:400 9px/1.42 var(--cf-font-body,Manrope,sans-serif);color:var(--cf-text-secondary,#b9b0a6)}
 .cf206-coach button{position:absolute;z-index:2;right:7px;top:50%;transform:translateY(-50%);width:28px;min-width:28px!important;height:28px;min-height:28px!important;padding:0!important;border-radius:9px!important;border:1px solid #3a302b!important;background:#1b1816!important;color:var(--cf-glow,#e69a56)!important;font-size:17px!important;box-shadow:none!important}
@@ -1372,8 +1375,9 @@ html.cf-onboarding-open,html.cf-onboarding-open body{overflow:hidden!important;o
 .cf-progress-hero:before{filter:saturate(.9) contrast(.96) brightness(.92);opacity:.34}
 .cf-more-b7-hero:before{filter:saturate(.94) brightness(.92) contrast(.99);opacity:.35}
 .cf206-home-greeting::before{filter:saturate(.9) contrast(.98) brightness(.86) sepia(.05)}
+.cf206-nutrition{background-image:linear-gradient(90deg,#151516 0%,#151516 43%,rgba(21,21,22,.92) 55%,rgba(21,21,22,.48) 76%,rgba(21,21,22,.68) 100%),linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.48)),url('./cf-nutrition-hero.webp')}
+.cf206-progress::before{opacity:.58;filter:saturate(.94) contrast(1.0) brightness(.86) sepia(.05)}
 .cf206-today::before{filter:saturate(.88) contrast(.98) brightness(.84) sepia(.05)}
-.cf206-coach::after{filter:saturate(.9) brightness(.82) contrast(.99) sepia(.04);opacity:.34}
 .cf206t-workout:before{opacity:.88;filter:saturate(.96) contrast(.99) brightness(.9) sepia(.05)}
 .cf206t-thumb{filter:saturate(.92) brightness(.84) contrast(.99)}
 .cf206t-workout-detail:before{opacity:.82;filter:saturate(.94) contrast(.99) brightness(.9) sepia(.05)}
