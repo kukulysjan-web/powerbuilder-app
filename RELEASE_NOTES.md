@@ -41,3 +41,13 @@ Den Inhalt des ZIPs in den GitHub-Repository-Root hochladen und vorhandene Datei
 - Meal thumbnails and training thumbnails retain more natural color.
 - Background image treatment remains subdued enough to protect readability.
 - Service worker cache was bumped so the update can be installed cleanly.
+
+- Home nutrition card restores the cinematic food background.
+- Home coach/insight card restores the mountain atmosphere with readable masking.
+
+## Home image placement correction
+
+- Nutrition background is attached directly to the Home nutrition card so it cannot disappear behind the card background.
+- Mountain artwork was moved from the Coach Insight card to the Home Progress card.
+- Coach Insight is image-free again.
+- Version remains 2.0.6.2; this is a correction inside the same release candidate.
