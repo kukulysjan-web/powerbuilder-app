@@ -1412,7 +1412,7 @@ html.cf-onboarding-open,html.cf-onboarding-open body{overflow:hidden!important;o
 <div id="calcModal" class="modalwrap hidden"><div class="modal"><div class="row"><h2>Trainingsrechner</h2><button onclick="closeCalc()">×</button></div><div class="section">1RM-Rechner</div><div class="grid2"><div class="field"><label>Gewicht</label><input id="calcWeight" type="number" step="0.5" oninput="calc1RM()"></div><div class="field"><label>Wiederholungen</label><input id="calcReps" type="number" step="1" min="1" max="36" oninput="calc1RM()"></div></div><div class="card"><div class="meta">Formel wie in der Kilo/Kilo-Excel: Gewicht × 36 / (37 − Wiederholungen)</div><div class="exercise" id="calcResult">–</div></div><div class="field"><label>Als 1RM übernehmen für</label><select id="calcLift"><option value="squat">Kniebeuge</option><option value="bench">Bank</option><option value="deadlift">Kreuzheben</option><option value="ohp">OHP</option></select></div><button class="primary wide" style="margin-top:10px" onclick="applyCalcRM()">Als 1RM übernehmen</button><div class="splitline"></div><div class="section">RIR-Richtwert · Revenge</div><div class="meta" style="margin-bottom:8px">Wie im Revenge-Sheet: Richtwert für ein Trainingsgewicht aus 1RM, Wiederholungen und gewünschter RIR.</div><div class="grid3"><div class="field"><label>1RM</label><input id="rirCalcRM" type="number" step="0.5" oninput="calcRIRLoad()"></div><div class="field"><label>Wiederholungen</label><input id="rirCalcReps" type="number" min="1" max="12" value="4" oninput="calcRIRLoad()"></div><div class="field"><label>RIR</label><select id="rirCalcRir" onchange="calcRIRLoad()"><option>0</option><option>0.5</option><option>1</option><option>1.5</option><option selected>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option><option>5.5</option><option>6</option><option>6.5</option><option>7</option></select></div></div><div class="card"><div class="meta">Richtwert laut RIR-Tabelle</div><div class="exercise" id="rirCalcResult">–</div></div></div></div>
 
 <script>
-const APP_VERSION='2.0.6.3';
+const APP_VERSION='2.0.6.4';
 const STORAGE='janTrainingUnifiedV1';
 const KDATA={"program":{"Initio":{"hasRIR":false,"days":{"A":[{"default":"Kniebeuge Fokusübung","cue":"Trage hier ein, woran du dich erinnern willst!"},{"default":"Bankdrücken Fokusübung","cue":"Warm Up Tipps!"},{"default":"Kreuzheben Fokusübung","cue":""},{"default":"Überkopfdrücken Fokusübung","cue":""},{"default":"Rudervariation","cue":""},{"default":"Tricepsextension","cue":""},{"default":"Schulterübung","cue":""}],"B":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Klimmzug","cue":""},{"default":"Seitheben (Bodybuilding-Option)","cue":""},{"default":"Schulterübung","cue":""},{"default":"Bicepscurls","cue":""},{"default":"Bauchtraining","cue":""}],"C":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Kreuzheben Fokusübung","cue":""},{"default":"Überkopfdrücken Fokusübung","cue":""},{"default":"Rudervariation","cue":""},{"default":"Tricepsextension","cue":""},{"default":"Schulterübung","cue":""}]},"cycles":[{"label":"Minizyklus 1","days":{"A":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"B":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"C":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}]}},{"label":"Minizyklus 2","days":{"A":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"B":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"C":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}]}},{"label":"Minizyklus 3","days":{"A":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"B":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"C":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}]}},{"label":"Minizyklus 4","days":{"A":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"B":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"C":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}]}},{"label":"Minizyklus 5","days":{"A":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"B":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"C":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}]}},{"label":"Minizyklus 6","days":{"A":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"B":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"C":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}]}},{"label":"Minizyklus 7","days":{"A":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"B":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"C":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}]}},{"label":"Minizyklus 8","days":{"A":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"B":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"C":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}]}},{"label":"Minizyklus 9","days":{"A":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"B":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"C":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}]}},{"label":"Minizyklus 10","days":{"A":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"B":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}],"C":[{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":4,"reps":6,"rir":null},{"sets":3,"reps":6,"rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null},{"sets":2,"reps":"10 bis 15","rir":null}]}}]},"Magis Frauen":{"hasRIR":true,"days":{"A":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Kreuzheben Fokusübung","cue":""},{"default":"Überkopfdrücken Fokusübung","cue":""},{"default":"Rudervariation","cue":""},{"default":"Tricepsextension","cue":""},{"default":"Schulterübung","cue":""}],"B":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Klimmzug","cue":""},{"default":"Beinbeuger-Curls / Glute Kickbacks (Option)","cue":""},{"default":"Schulterübung","cue":""},{"default":"Bicepscurls","cue":""},{"default":"Bauchtraining","cue":""}],"C":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Kreuzheben Fokusübung","cue":""},{"default":"Überkopfdrücken Fokusübung","cue":""},{"default":"Rudervariation","cue":""},{"default":"Tricepsextension","cue":""},{"default":"Schulterübung","cue":""}]},"cycles":[{"label":"Minizyklus 1","days":{"A":[{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":4,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 2","days":{"A":[{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":4,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 3","days":{"A":[{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":4,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 4","days":{"A":[{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":4,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 5","days":{"A":[{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":4,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 6","days":{"A":[{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":4,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 7","days":{"A":[{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":4,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 8","days":{"A":[{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":4,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 9","days":{"A":[{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":4,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 10","days":{"A":[{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":4,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}}]},"Magis Männer":{"hasRIR":true,"days":{"A":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Kreuzheben Fokusübung","cue":""},{"default":"Überkopfdrücken Fokusübung","cue":""},{"default":"Rudervariation","cue":""},{"default":"Tricepsextension","cue":""},{"default":"Schulterübung","cue":""}],"B":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Klimmzug","cue":""},{"default":"Seitheben (Bodybuilding-Option)","cue":""},{"default":"Schulterübung","cue":""},{"default":"Bicepscurls","cue":""},{"default":"Bauchtraining","cue":""}],"C":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Kreuzheben Fokusübung","cue":""},{"default":"Überkopfdrücken Fokusübung","cue":""},{"default":"Rudervariation","cue":""},{"default":"Tricepsextension","cue":""},{"default":"Schulterübung","cue":""}]},"cycles":[{"label":"Minizyklus 1","days":{"A":[{"sets":4,"reps":5,"rir":2},{"sets":4,"reps":4,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":3,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":3,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 2","days":{"A":[{"sets":4,"reps":5,"rir":2},{"sets":4,"reps":4,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":3,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":3,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 3","days":{"A":[{"sets":4,"reps":5,"rir":2},{"sets":4,"reps":4,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":3,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":3,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 4","days":{"A":[{"sets":4,"reps":5,"rir":2},{"sets":4,"reps":4,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":3,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":3,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 5","days":{"A":[{"sets":4,"reps":5,"rir":2},{"sets":4,"reps":4,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":3,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":3,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 6","days":{"A":[{"sets":4,"reps":5,"rir":2},{"sets":4,"reps":4,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":3,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":3,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 7","days":{"A":[{"sets":4,"reps":5,"rir":2},{"sets":4,"reps":4,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":3,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":3,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 8","days":{"A":[{"sets":4,"reps":5,"rir":2},{"sets":4,"reps":4,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":3,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":3,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 9","days":{"A":[{"sets":4,"reps":5,"rir":2},{"sets":4,"reps":4,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":3,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":3,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 10","days":{"A":[{"sets":4,"reps":5,"rir":2},{"sets":4,"reps":4,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":3,"reps":7,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":4,"rir":2},{"sets":4,"reps":7,"rir":2},{"sets":4,"reps":5,"rir":2},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":3,"reps":7,"rir":2},{"sets":5,"reps":5,"rir":2},{"sets":5,"reps":4,"rir":2},{"sets":3,"reps":5,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}}]},"Novum Frauen":{"hasRIR":true,"days":{"A":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Variation","cue":""},{"default":"Kreuzheben Fokusübung","cue":""},{"default":"OHP-Zusatzübung","cue":""},{"default":"Rudervariation","cue":""},{"default":"Tricepsextension","cue":""},{"default":"Schulterübung","cue":""}],"B":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Klimmzug","cue":""},{"default":"Beinbeuger-Curls / Glute Kickbacks (Option)","cue":""},{"default":"Schulterübung","cue":""},{"default":"Bicepscurls","cue":""},{"default":"Bauchtraining","cue":""}],"C":[{"default":"Kniebeuge Variation","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Kreuzheben Variation","cue":""},{"default":"Überkopfdrücken Fokusübung","cue":""},{"default":"Rudervariation","cue":""},{"default":"Tricepsextension","cue":""},{"default":"Schulterübung","cue":""}]},"cycles":[{"label":"Minizyklus 1","days":{"A":[{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":1},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 2","days":{"A":[{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":1},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 3","days":{"A":[{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":1},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 4","days":{"A":[{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":1},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 5","days":{"A":[{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":1},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 6","days":{"A":[{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":1},{"sets":5,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 7 - DELOAD","days":{"A":[{"sets":4,"reps":6,"rir":4},{"sets":4,"reps":"8 bis 12","rir":4},{"sets":3,"reps":7,"rir":4},{"sets":2,"reps":"8 bis 12","rir":4},{"sets":3,"reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3}],"B":[{"sets":3,"reps":10,"rir":4},{"sets":4,"reps":10,"rir":4},{"sets":2,"reps":6,"rir":4},{"sets":2,"reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3}],"C":[{"sets":4,"reps":"8 bis 12","rir":4},{"sets":3,"reps":6,"rir":4},{"sets":3,"reps":"8 bis 12","rir":4},{"sets":3,"reps":6,"rir":3},{"sets":3,"reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3}]}}]},"Novum Männer":{"hasRIR":true,"days":{"A":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Variation","cue":""},{"default":"Kreuzheben Fokusübung","cue":""},{"default":"OHP-Zusatzübung","cue":""},{"default":"Rudervariation","cue":""},{"default":"Tricepsextension","cue":""},{"default":"Schulterübung","cue":""}],"B":[{"default":"Kniebeuge Fokusübung","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Klimmzug","cue":""},{"default":"Seitheben (Bodybuilding-Option)","cue":""},{"default":"Schulterübung","cue":""},{"default":"Bicepscurls","cue":""},{"default":"Bauchtraining","cue":""}],"C":[{"default":"Kniebeuge Variation","cue":"Warm Up Tipps!"},{"default":"Bankdrücken Fokusübung","cue":""},{"default":"Kreuzheben Variation","cue":""},{"default":"Überkopfdrücken Fokusübung","cue":""},{"default":"Rudervariation","cue":""},{"default":"Tricepsextension","cue":""},{"default":"Schulterübung","cue":""}]},"cycles":[{"label":"Minizyklus 1","days":{"A":[{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":4,"reps":10,"rir":2},{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":4,"reps":6,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 2","days":{"A":[{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":4,"reps":10,"rir":2},{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":4,"reps":6,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 3","days":{"A":[{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":4,"reps":10,"rir":2},{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":4,"reps":6,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 4","days":{"A":[{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":4,"reps":10,"rir":2},{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":4,"reps":6,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 5","days":{"A":[{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":4,"reps":10,"rir":2},{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":4,"reps":6,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 6","days":{"A":[{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":5,"reps":7,"rir":2},{"sets":4,"reps":"8 bis 12","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"B":[{"sets":4,"reps":10,"rir":2},{"sets":5,"reps":10,"rir":2},{"sets":4,"reps":6,"rir":2},{"sets":4,"reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}],"C":[{"sets":5,"reps":"8 bis 12","rir":2},{"sets":5,"reps":6,"rir":2},{"sets":4,"reps":"8 bis 12","rir":2},{"sets":4,"reps":6,"rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1},{"sets":"3 bis 4","reps":"10 bis 15","rir":1}]}},{"label":"Minizyklus 7 - DELOAD","days":{"A":[{"sets":3,"reps":6,"rir":4},{"sets":3,"reps":"8 bis 12","rir":4},{"sets":3,"reps":7,"rir":4},{"sets":3,"reps":"8 bis 12","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3}],"B":[{"sets":3,"reps":10,"rir":4},{"sets":4,"reps":10,"rir":4},{"sets":3,"reps":6,"rir":4},{"sets":3,"reps":"10 bis 15","rir":4},{"sets":"3 bis 4","reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3}],"C":[{"sets":4,"reps":"8 bis 12","rir":4},{"sets":4,"reps":6,"rir":4},{"sets":3,"reps":"8 bis 12","rir":4},{"sets":3,"reps":6,"rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3},{"sets":"3 bis 4","reps":"10 bis 15","rir":3}]}}]}},"variants":{"Kniebeuge Fokusübung":["Highbar-Kniebeuge","Lowbar-Kniebeuge","Front-Kniebeuge","Kettlebell-Kniebeuge","Safety Squatbar-Kniebeuge","Belt-Squat","Eigene Übung …"],"Bankdrücken Fokusübung":["Bankdrücken","Kurzhantel - Bankdrücken","Schrägbankdrücken","Kurzhantel - Schrägbankdrücken","Dips","Liegestütze","Eigene Übung …"],"Kreuzheben Fokusübung":["Konv. Kreuzheben","Sumo Kreuzheben","Semi - Sumo Kreuzheben","Trapbar Kreuzheben","Rumänisches Kreuzheben","Eigene Übung …"],"Überkopfdrücken Fokusübung":["Überkopfdrücken (LH)","Kurzhantel Überkopfdrücken","Sitzendes Überkopfdrücken (LH)","Eigene Übung …"],"Klimmzug":["Klimmzug","Klimmzug mit Gummiband","Latzug (Weiter Griff)","Latzug (Enger Griff)","Eigene Übung …"],"Schulterübung":["Facepulls","Reverse Butterfly","Vorgebeugtes Seitheben","Außenrotation der Schulter bei 90°","Eigene Übung …"],"Kniebeuge Variation":["Bulgarian Split Squats (Kurzhantel)","Bulgarian Split Squats (SSB)","Bulgarian Split Squats (Multipresse)","Kurzhantel - Step Ups","Ausfallschritte","Beinpresse","Hackenschmitt - Maschine","Eigene Übung …"],"Bankdrücken Variation":["Kurzhantel - Bankdrücken","Schrägbankdrücken","Kurzhantel - Schrägbankdrücken","Dips","Defizit Liegestütze","Enges Bankdrücken","Brustpresse (Maschine)","Eigene Übung …"],"Kreuzheben Variation":["Rumänisches Kreuzheben","Rumänisches Kreuzheben im Snatchgrip","Einbeiniges Rumänisches Kreuzheben (KB/LH)","Staggered Stance RDL (KB/LH)","Hipthrusts","Glute-Ham-Raise","Eigene Übung …"],"Überkopfdrücken Variation":["Kurzhantel Überkopfdrücken","Überkopfdrücken an der Maschine","Eigene Übung …"],"Rudervariation":["Langhantelrudern","Kurzhantelrudern","Rudern am Kabelturm","Rudern an der Maschine","Eigene Übung …"],"Bauchtraining":["Crunches","Ab - Wheel","Cable Crunches","Bauchmaschine","Eigene Übung …"],"Bicepscurls":["Langhantelcurls","Kurzhantelcurls","Curls am Kabelzug","Bicepsmaschine","Eigene Übung …"],"OHP-Zusatzübung":["OHP-Zusatzübung","Kurzhantel-Überkopfdrücken","Überkopfdrücken-Maschine","Eigene Übung …"],"Seitheben (Bodybuilding-Option)":["Seitheben (Bodybuilding-Option)","Eigene Übung …"],"Beinbeuger-Curls / Glute Kickbacks (Option)":["Beinbeuger-Curls / Glute Kickbacks (Option)","Eigene Übung …"],"Tricepsextension":["Tricepsextension","Eigene Übung …"]}};
 const KPROGRAM=KDATA.program, KVARIANTS=KDATA.variants;
@@ -3066,5 +3066,730 @@ if(['home','training','progress','more','nutrition'].includes(state.activeView))
 /* ---------- /COALFORGED 2.0.6.3 · UNIVERSAL EXERCISE REGISTRY ---------- */
 
 
+</script>
+
+<script>
+/* ---------- COALFORGED FSDP QUICK PLANS · BLOCK 1 · DATA FOUNDATION ---------- */
+const CFFSDP_SCHEMA_VERSION=2;
+const CFFSDP_CATALOG_VERSION=3;
+const CFFSDP_MODEL='first_set_double_progression';
+const CFFSDP_PROGRAM_ORDER=[
+  'jan_45_60_3day_ouk',
+  'jan_45_60_4day_ouk',
+  'jan_45_60_push_legs_pull_push',
+  'jan_lats_focus_a',
+  'jan_lats_focus_b'
+];
+const CFFSDP_CATALOG={
+  jan_45_60_3day_ouk:{
+    id:'jan_45_60_3day_ouk',
+    name:'45–60 min · OK/UK/OK',
+    shortName:'45–60 A',
+    type:'COALFORGED_FSDP',
+    progressionModel:CFFSDP_MODEL,
+    source:{file:'3er Plan 45-60min  jan.pdf',page:1},
+    schedule:['OK_A','UK','OFF','OFF','OK_B','OFF','OFF'],
+    days:[
+      {key:'OK_A',label:'Oberkörper A',sourcePage:1,exercises:[
+        {slot:1,exercise:'Schrägbank Kurzhantel BD',targetMuscle:'Brust',sets:3,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Dips',targetMuscle:'Brust',sets:3,repMin:8,repMax:30,repLabel:'8–30',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Klimmzüge',targetMuscle:'Rücken',sets:3,repMin:6,repMax:20,repLabel:'6–20',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'T-Bar',targetMuscle:'Rücken',sets:3,repMin:8,repMax:12,repLabel:'8–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'Bizeps Curls auf der Schrägbank',targetMuscle:'Bizeps',sets:3,repMin:10,repMax:15,repLabel:'10–15',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'UK',label:'Beintag',sourcePage:1,exercises:[
+        {slot:1,exercise:'Beinbeuger',targetMuscle:'Hamstrings',sets:3,repMin:15,repMax:20,repLabel:'15–20',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Beinstrecker',targetMuscle:'Quads',sets:3,repMin:15,repMax:20,repLabel:'15–20',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Kniebeuge Multipresse',targetMuscle:'Quads',sets:3,repMin:8,repMax:12,repLabel:'8–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Walking Lunges',targetMuscle:'Quads, Glute',sets:1,repMin:60,repMax:60,repLabel:'60 Schritte',targetType:'fixed_steps',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'OK_B',label:'Oberkörper B',sourcePage:1,exercises:[
+        {slot:1,exercise:'RDL',targetMuscle:'Hamstrings, glutes, Rücken',sets:3,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Schrägbank Multipresse',targetMuscle:'Brust',sets:3,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Klimmzüge Neutraler Griff',targetMuscle:'Rücken',sets:1,repMin:30,repMax:40,repLabel:'30–40',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'LGS',targetMuscle:'Brust',sets:1,repMin:100,repMax:100,repLabel:'100',targetType:'fixed_reps',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'SS: Curls / Pushdowns',targetMuscle:'Arme',sets:3,repMin:15,repMax:20,repLabel:'15–20',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]}
+    ]
+  },
+  jan_45_60_4day_ouk:{
+    id:'jan_45_60_4day_ouk',
+    name:'45–60 min · OK/UK 4 Tage',
+    shortName:'45–60 B',
+    type:'COALFORGED_FSDP',
+    progressionModel:CFFSDP_MODEL,
+    source:{file:'3er Plan 45-60min  jan.pdf',page:2},
+    schedule:['OK','OFF','UK','OFF','OK','OFF','UK'],
+    days:[
+      {key:'OK',label:'Oberkörper',sourcePage:2,exercises:[
+        {slot:1,exercise:'Schrägbank Multipresse',targetMuscle:'Brust',sets:2,repMin:6,repMax:8,repLabel:'6–8',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Dips',targetMuscle:'Brust',sets:2,repMin:6,repMax:8,repLabel:'6–8',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'T-Bar',targetMuscle:'Trapez',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Latzug eng von oben',targetMuscle:'Lat',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'Curls am Kabel im stehen',targetMuscle:'Bizeps',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:6,exercise:'Pushdowns',targetMuscle:'Trizeps',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'UK',label:'Beintag',sourcePage:2,exercises:[
+        {slot:1,exercise:'Beinbeuger',targetMuscle:'Hamstring',sets:2,repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'RDL KH',targetMuscle:'Hamstring',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Pendlum Squat',targetMuscle:'Quads',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Walking Lunges KH',targetMuscle:'Quads',sets:2,repMin:8,repMax:10,repLabel:'8–10 Steps',targetType:'range_steps',progressionModel:CFFSDP_MODEL}
+      ]}
+    ]
+  },
+  jan_45_60_push_legs_pull_push:{
+    id:'jan_45_60_push_legs_pull_push',
+    name:'45–60 min · Push/Beine/Pull/Push',
+    shortName:'45–60 C',
+    type:'COALFORGED_FSDP',
+    progressionModel:CFFSDP_MODEL,
+    source:{file:'3er Plan 45-60min  jan.pdf',page:3},
+    schedule:['PUSH','OFF','BEINE','OFF','PULL','OFF','PUSH'],
+    days:[
+      {key:'PUSH',label:'Push',sourcePage:3,exercises:[
+        {slot:1,exercise:'Schrägbank Multipresse',targetMuscle:'Brust',sets:2,repMin:6,repMax:8,repLabel:'6–8',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Dips',targetMuscle:'Brust',sets:2,repMin:6,repMax:8,repLabel:'6–8',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Pushdowns',targetMuscle:'Trizeps',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Seitheben Kurzhantel',targetMuscle:'Schulter',sets:2,repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'BEINE',label:'Beintag',sourcePage:3,exercises:[
+        {slot:1,exercise:'Beinbeuger',targetMuscle:'Hamstring',sets:2,repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Pendlum Squat',targetMuscle:'Quads',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Walking Lunges KH',targetMuscle:'Quads',sets:2,repMin:8,repMax:10,repLabel:'8–10 Steps',targetType:'range_steps',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Wadenheben',targetMuscle:'Waden',sets:3,repMin:6,repMax:8,repLabel:'6–8',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'PULL',label:'Pull',sourcePage:3,exercises:[
+        {slot:1,exercise:'RDL KH',targetMuscle:'Glute, Hams, Rücken',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'T-Bar',targetMuscle:'Trapez',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Latzug eng von oben',targetMuscle:'Lats',sets:3,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Bizeps am Kabel von unten hinten',targetMuscle:'Bizeps',sets:3,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]}
+    ]
+  },
+  jan_lats_focus_a:{
+    id:'jan_lats_focus_a',
+    name:'Lats Fokus · Plan A',
+    shortName:'Lats A',
+    type:'COALFORGED_FSDP',
+    progressionModel:CFFSDP_MODEL,
+    source:{file:'4er Plan Lats Fokus_Jan.pdf',page:1},
+    schedule:['OK','UK','OFF','PULL','PUSH','OFF','OFF'],
+    days:[
+      {key:'OK',label:'Oberkörper',sourcePage:1,exercises:[
+        {slot:1,exercise:'Highrow einarmig (Kabel)',targetMuscle:'Lats',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'T-Bar',targetMuscle:'Trapez',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'KH BD',targetMuscle:'Brust',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Schrägbank Multipresse',targetMuscle:'Brust',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'Seitheben',targetMuscle:'Delts',sets:2,setMin:2,setMax:3,setLabel:'2–3',setType:'range',repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:6,exercise:'Facepulls',targetMuscle:'Delts',sets:2,repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:7,exercise:'Schrägbank Curls KH',targetMuscle:'Bizeps',sets:2,setMin:2,setMax:3,setLabel:'2–3',setType:'range',repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:8,exercise:'Trizeps Pushdowns am Tau',targetMuscle:'Trizeps',sets:2,setMin:2,setMax:3,setLabel:'2–3',setType:'range',repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'UK',label:'Beine',sourcePage:1,exercises:[
+        {slot:1,exercise:'Beinbeuger im sitzen',targetMuscle:'Hams',sets:2,repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Beinpresse (pausiert)',targetMuscle:'Quads',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Multipresse Kniebeuge (pausiert)',targetMuscle:'Quads',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Beinstrecker',targetMuscle:'Quads',sets:2,repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'SLDL (Multi, Frei)',targetMuscle:'Glutes, Traps, Hams',sets:2,repMin:6,repMax:8,repLabel:'6–8',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'PULL',label:'Pull',sourcePage:1,exercises:[
+        {slot:1,exercise:'Rudern einarmig von vorne',targetMuscle:'Lats',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Breiter Latzug',targetMuscle:'Teres/ Lat',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'T-Bar',targetMuscle:'Trapez',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'Kabelcurls von unten hinten',targetMuscle:'Bizeps',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:6,exercise:'Hammercurls KH',targetMuscle:'Bizeps',sets:2,repMin:8,repMax:12,repLabel:'8–12',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'PUSH',label:'Push',sourcePage:1,exercises:[
+        {slot:1,exercise:'Schrägbank Maschine',targetMuscle:'Brust',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Dips',targetMuscle:'Brust, Trizeps',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Katana Extensions',targetMuscle:'Trizeps',sets:2,repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Seitheben',targetMuscle:'Delts',sets:3,repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'Facepulls',targetMuscle:'Delts',sets:2,repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]}
+    ]
+  },
+  jan_lats_focus_b:{
+    id:'jan_lats_focus_b',
+    name:'Lats Fokus · Plan B',
+    shortName:'Lats B',
+    type:'COALFORGED_FSDP',
+    progressionModel:CFFSDP_MODEL,
+    source:{file:'4er Plan Lats Fokus_Jan.pdf',page:2},
+    schedule:['OK','UK','OFF','PULL','PUSH','OFF','OFF'],
+    days:[
+      {key:'OK',label:'Oberkörper',sourcePage:2,exercises:[
+        {slot:1,exercise:'Highrow einarmig (Kabel)',targetMuscle:'Lats',sets:2,repMin:12,repMax:15,repLabel:'12–15',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Seilrudern Eng von vorne',targetMuscle:'Lats',sets:2,setMin:2,setMax:3,setLabel:'2–3',setType:'range',repMin:12,repMax:15,repLabel:'12–15',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'KH BD',targetMuscle:'Brust',sets:3,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Schrägbank Multipresse',targetMuscle:'Brust',sets:3,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'Seitheben',targetMuscle:'Delts',sets:3,repMin:20,repMax:30,repLabel:'20–30',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:6,exercise:'Facepulls',targetMuscle:'Delts',sets:3,repMin:20,repMax:30,repLabel:'20–30',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:7,exercise:'Schrägbank Curls KH',targetMuscle:'Bizeps',sets:3,repMin:10,repMax:15,repLabel:'10–15',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:8,exercise:'Trizeps Pushdowns am Tau',targetMuscle:'Trizeps',sets:3,repMin:10,repMax:15,repLabel:'10–15',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'UK',label:'Beine',sourcePage:2,exercises:[
+        {slot:1,exercise:'Beinbeuger im sitzen',targetMuscle:'Hams',sets:3,repMin:10,repMax:15,repLabel:'10–15',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Beinpresse (pausiert)',targetMuscle:'Quads',sets:3,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Multipresse Kniebeuge (pausiert)',targetMuscle:'Quads',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Beinstrecker',targetMuscle:'Quads',sets:2,repMin:10,repMax:15,repLabel:'10–15',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'SLDL (Multi, Frei)',targetMuscle:'Glutes, Traps, Hams',sets:2,repMin:6,repMax:8,repLabel:'6–8',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'PULL',label:'Pull',sourcePage:2,exercises:[
+        {slot:1,exercise:'Rudern einarmig von unten',targetMuscle:'Lats',sets:2,repMin:12,repMax:15,repLabel:'12–15',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Lazug Eng von oben V Griff',targetMuscle:'Lats',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'T-Bar',targetMuscle:'Trapez',sets:3,repMin:10,repMax:12,repLabel:'10–12',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Breiter Latzug',targetMuscle:'Trapez / Teres/ Lat',sets:2,repMin:15,repMax:20,repLabel:'15–20',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'Kabelcurls von unten hinten',targetMuscle:'Bizeps',sets:3,repMin:10,repMax:15,repLabel:'10–15',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:6,exercise:'Hammercurls KH',targetMuscle:'Bizeps',sets:2,repMin:8,repMax:12,repLabel:'8–12',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]},
+      {key:'PUSH',label:'Push',sourcePage:2,exercises:[
+        {slot:1,exercise:'Schrägbank Maschine',targetMuscle:'Brust',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:2,exercise:'Flachbank Maschine',targetMuscle:'Brust',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:3,exercise:'Dips',targetMuscle:'Brust, Trizeps',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:4,exercise:'Butterfly',targetMuscle:'Brust',sets:2,repMin:8,repMax:10,repLabel:'8–10',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:5,exercise:'Katana Extensions',targetMuscle:'Trizeps',sets:3,repMin:10,repMax:15,repLabel:'10–15',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:6,exercise:'Seitheben',targetMuscle:'Delts',sets:3,repMin:15,repMax:20,repLabel:'15–20',targetType:'range',progressionModel:CFFSDP_MODEL},
+        {slot:7,exercise:'Facepulls',targetMuscle:'Delts',sets:3,repMin:15,repMax:20,repLabel:'15–20',targetType:'range',progressionModel:CFFSDP_MODEL}
+      ]}
+    ]
+  }
+};
+
+
+// Blocks 2–3 source rule: prescriptions mirror pages 1–3 of the 45–60 min PDF and pages 1–2 of the Lats Focus PDF.
+// Existing handwritten Week-1 loads/reps are treated as log data, not program defaults.
+// Range prescriptions use COALFORGED First Set Double Progression; fixed rep/step targets remain source-faithful targets.
+function cfFsdpDay(programId,dayKey){return (cfFsdpCatalogEntry(programId)?.days||[]).find(d=>d.key===dayKey)||null}
+function cfFsdpExercisePrescription(programId,dayKey,slot){return (cfFsdpDay(programId,dayKey)?.exercises||[]).find(e=>+e.slot===+slot)||null}
+function cfFsdpIsRangeTarget(ex){return !!ex&&['range','range_steps'].includes(ex.targetType)}
+function cfFsdpIsFixedTarget(ex){return !!ex&&['fixed_reps','fixed_steps'].includes(ex.targetType)}
+function cfFsdpSetMin(ex){return ex?.setMin!=null?+ex.setMin:+ex?.sets||0}
+function cfFsdpSetMax(ex){return ex?.setMax!=null?+ex.setMax:+ex?.sets||0}
+function cfFsdpSetLabel(ex){let a=cfFsdpSetMin(ex),b=cfFsdpSetMax(ex);return ex?.setLabel||(a===b?String(a):`${a}–${b}`)}
+
+function cfFsdpDeep(x){return x==null?x:JSON.parse(JSON.stringify(x))}
+function cfFsdpCatalogEntry(id){return CFFSDP_CATALOG[id]||null}
+function cfFsdpMakeRun(programId,name=''){
+  let def=cfFsdpCatalogEntry(programId),now=new Date().toISOString();
+  return{
+    id:uid(),
+    programId,
+    name:name||def?.name||programId,
+    created:now,
+    week:1,
+    dayIndex:0,
+    log:{},
+    exerciseLogs:{},
+    exerciseChoices:{},
+    exerciseChoiceIds:{},
+    completed:[],
+    workout:null,
+    progression:{
+      model:CFFSDP_MODEL,
+      exerciseStates:{},
+      history:[]
+    }
+  }
+}
+function cfFsdpProgramBox(programId,box=null){
+  box=box&&typeof box==='object'?box:{};
+  box.runs=Array.isArray(box.runs)?box.runs:[];
+  if(!box.runs.length)box.runs.push(cfFsdpMakeRun(programId));
+  for(let r of box.runs){
+    r.programId=programId;
+    r.log=r.log&&typeof r.log==='object'?r.log:{};
+    r.exerciseLogs=r.exerciseLogs&&typeof r.exerciseLogs==='object'?r.exerciseLogs:{};
+    r.exerciseChoices=r.exerciseChoices&&typeof r.exerciseChoices==='object'?r.exerciseChoices:{};
+    r.exerciseChoiceIds=r.exerciseChoiceIds&&typeof r.exerciseChoiceIds==='object'?r.exerciseChoiceIds:{};
+    r.completed=Array.isArray(r.completed)?r.completed:[];
+    r.progression=r.progression&&typeof r.progression==='object'?r.progression:{};
+    r.progression.model=CFFSDP_MODEL;
+    r.progression.exerciseStates=r.progression.exerciseStates&&typeof r.progression.exerciseStates==='object'?r.progression.exerciseStates:{};
+    r.progression.history=Array.isArray(r.progression.history)?r.progression.history:[];
+    if(r.week==null)r.week=1;
+    if(r.dayIndex==null)r.dayIndex=0;
+    if(r.workout===undefined)r.workout=null;
+  }
+  if(!box.active||!box.runs.some(r=>r.id===box.active))box.active=box.runs[0].id;
+  return box
+}
+function cfFsdpEnsureState(s=state){
+  s.fsdp=s.fsdp&&typeof s.fsdp==='object'?s.fsdp:{};
+  s.fsdp.schemaVersion=CFFSDP_SCHEMA_VERSION;
+  s.fsdp.catalogVersion=CFFSDP_CATALOG_VERSION;
+  s.fsdp.programs=s.fsdp.programs&&typeof s.fsdp.programs==='object'?s.fsdp.programs:{};
+  for(let id of CFFSDP_PROGRAM_ORDER)s.fsdp.programs[id]=cfFsdpProgramBox(id,s.fsdp.programs[id]);
+  if(!CFFSDP_PROGRAM_ORDER.includes(s.fsdp.activeProgramId))s.fsdp.activeProgramId=CFFSDP_PROGRAM_ORDER[0];
+  return s.fsdp
+}
+function cfFsdpRun(programId,runId=''){
+  let fs=cfFsdpEnsureState(),box=fs.programs[programId];
+  if(!box)return null;
+  return box.runs.find(r=>r.id===(runId||box.active))||box.runs[0]||null
+}
+function cfFsdpAllRuns(s=state){
+  let fs=cfFsdpEnsureState(s),out=[];
+  for(let id of CFFSDP_PROGRAM_ORDER)for(let r of fs.programs[id]?.runs||[])out.push({programId:id,run:r});
+  return out
+}
+function cfFsdpPrescriptionNames(){
+  let out=[];
+  for(let id of CFFSDP_PROGRAM_ORDER){
+    let def=CFFSDP_CATALOG[id];
+    for(let day of def?.days||[])for(let ex of day?.exercises||[])if(ex?.exercise)out.push(ex.exercise)
+  }
+  return typeof exClean==='function'?exClean(out):[...new Set(out.filter(Boolean))]
+}
+function cfFsdpExerciseId(name){
+  cfExEnsureRegistry();
+  cfExUpsertRegistryItem(state,name,'builtin',null);
+  return cfExerciseId(name)
+}
+function cfFsdpContextKey(programId,week,dayKey,index){return `${programId}|${week}|${dayKey}|${index}`}
+function cfFsdpCanonicalLog(programId,run,week,dayKey,index,exerciseName){
+  if(!run||!exerciseName)return null;
+  let context=cfFsdpContextKey(programId,week,dayKey,index),id=cfFsdpExerciseId(exerciseName);
+  run.exerciseChoiceIds=run.exerciseChoiceIds||{};
+  run.exerciseChoices=run.exerciseChoices||{};
+  run.exerciseChoiceIds[context]=id;
+  run.exerciseChoices[context]=cfExName(id,exerciseName);
+  return cfExCanonicalLog(run,context,exerciseName,run.log?.[context]||null)
+}
+function cfFsdpCompletedDate(run,context){
+  let hit=(run?.completed||[]).find(x=>x?.context===context||x?.key===context);
+  return hit?.date||run?.created||''
+}
+function cfFsdpMigrateState(s){
+  s=s||{};
+  cfFsdpEnsureState(s);
+  if(typeof cfExEnsureRegistry==='function')cfExEnsureRegistry(s);
+  return s
+}
+
+// Preserve the five program containers through reset/default-state and normalization.
+const cfFsdpDefaultStateBase=defaultState,cfFsdpNormalizeStateBase=normalizeState;
+defaultState=function(){return cfFsdpMigrateState(cfFsdpDefaultStateBase())};
+normalizeState=function(s){return cfFsdpMigrateState(cfFsdpNormalizeStateBase(s))};
+
+// When prescriptions are added in Blocks 2/3, their exercise names automatically join the Universal Exercise Registry.
+const cfFsdpRegistryNamesBase=cfExRegistryNames;
+cfExRegistryNames=function(){return exClean([...cfFsdpRegistryNamesBase(),...cfFsdpPrescriptionNames()])};
+
+// Backup imports keep the new program containers instead of silently dropping them.
+const cfFsdpCandidateBase=b8CandidateFromBackup;
+b8CandidateFromBackup=function(x){
+  let raw=(x&&x.state&&typeof x.state==='object')?x.state:x,c=cfFsdpCandidateBase(x);
+  if(c&&raw?.fsdp)c.fsdp=cfFsdpDeep(raw.fsdp);
+  return c?normalizeState(c):c
+};
+
+// Universal exercise performance rebuild also includes all FSDP-plan logs.
+const cfFsdpRebuildExerciseWeightsBase=rebuildExerciseWeights;
+rebuildExerciseWeights=function(){
+  cfFsdpRebuildExerciseWeightsBase();
+  cfFsdpEnsureState();
+  let rows=[];
+  for(let {programId,run} of cfFsdpAllRuns()){
+    for(let [key,L] of cfExRunLogEntries(run)){
+      let name=L.exercise||cfExName(L.exerciseId,'');
+      if(!name)continue;
+      let date=cfFsdpCompletedDate(run,key);
+      for(let z of L.sets||[])if(z?.ok&&+z.weight>0)rows.push({programId,date,name,z})
+    }
+  }
+  rows.sort((a,b)=>String(a.date||'').localeCompare(String(b.date||'')));
+  for(let x of rows){
+    let id=cfFsdpExerciseId(x.name),p=cfExPerformance(id);
+    p.lastWeight=+x.z.weight;
+    p.lastReps=+x.z.reps||0;
+    p.lastRir=(x.z.rir===''||x.z.rir==null)?null:+x.z.rir;
+    p.lastDate=x.date||'';
+    p.lastProgram=x.programId;
+    p.setCount=(+p.setCount||0)+1;
+    let est=(+x.z.reps>0)?e1rm(+x.z.weight,+x.z.reps):0;
+    if(est>+p.bestE1rm)p.bestE1rm=est;
+    state.exerciseWeights[cfExName(id,x.name)]=+x.z.weight
+  }
+  return state.exerciseWeights
+};
+
+// User-exercise renames remain consistent inside FSDP histories as well.
+const cfFsdpRenameRefsBase=renameExerciseReferences;
+renameExerciseReferences=function(oldName,newName){
+  let oldId='';
+  try{let item=cfExUserItemByName(state,oldName);oldId=item?cfExUserId(item):cfExerciseId(oldName)}catch(_){}
+  cfFsdpRenameRefsBase(oldName,newName);
+  if(!oldId)return;
+  for(let {run} of cfFsdpAllRuns()){
+    for(let [k,name] of Object.entries(run.exerciseChoices||{}))if(run.exerciseChoiceIds?.[k]===oldId||exNormName(name)===exNormName(oldName))run.exerciseChoices[k]=newName;
+    for(let L of Object.values(run.exerciseLogs||{}))if(L?.exerciseId===oldId)L.exercise=newName
+  }
+};
+
+state=cfFsdpMigrateState(state);
+cfExEnsureRegistry();
+save();
+/* ---------- COALFORGED FSDP QUICK PLANS · BLOCK 3 · LATS FOCUS PRESCRIPTIONS ---------- */
+/* Both Lats Focus source plans are populated separately. Source 2–3 set ranges are preserved explicitly via setMin/setMax/setLabel. */
+/* ---------- /COALFORGED FSDP QUICK PLANS · BLOCK 3 ---------- */
+</script>
+
+
+
+<script>
+/* ---------- COALFORGED FSDP QUICK PLANS · BLOCK 4 · FIRST SET DOUBLE PROGRESSION ENGINE ---------- */
+const CFFSDP_ENGINE_VERSION=1;
+const CFFSDP_RIR_DEFAULTS={compound:{min:1,max:2,label:'RIR 1–2'},isolation:{min:0,max:1,label:'RIR 0–1'}};
+
+function cfFsdpExerciseRole(ex){
+  let n=String(ex?.exercise||'').toUpperCase();
+  if(/CURL|PUSHDOWN|EXTENSION|SEITHEBEN|FACEPULL|BUTTERFLY|BEINBEUGER|BEINSTRECKER|WADENHEBEN/.test(n))return'isolation';
+  return'compound'
+}
+function cfFsdpRirGuardrail(ex){
+  if(ex?.rirMin!=null||ex?.rirMax!=null){
+    let min=ex?.rirMin==null?0:+ex.rirMin,max=ex?.rirMax==null?min:+ex.rirMax;
+    if(max<min)[min,max]=[max,min];
+    return{min,max,label:`RIR ${min}${max!==min?`–${max}`:''}`,source:'prescription'}
+  }
+  let role=cfFsdpExerciseRole(ex),d=CFFSDP_RIR_DEFAULTS[role]||CFFSDP_RIR_DEFAULTS.compound;
+  return{min:d.min,max:d.max,label:d.label,source:`default_${role}`}
+}
+function cfFsdpContractKey(ex){
+  if(!ex)return'';
+  return `${ex.targetType||'range'}|${+ex.repMin||0}|${+ex.repMax||0}|${cfFsdpSetMin(ex)}|${cfFsdpSetMax(ex)}`
+}
+function cfFsdpProgressionContract(ex){
+  if(!ex)return null;
+  let rir=cfFsdpRirGuardrail(ex),range=cfFsdpIsRangeTarget(ex);
+  return{
+    model:range?CFFSDP_MODEL:'fixed',
+    eligible:range,
+    role:cfFsdpExerciseRole(ex),
+    repMin:+ex.repMin||0,
+    repMax:+ex.repMax||0,
+    repLabel:ex.repLabel||'',
+    setMin:cfFsdpSetMin(ex),
+    setMax:cfFsdpSetMax(ex),
+    setLabel:cfFsdpSetLabel(ex),
+    targetType:ex.targetType||'range',
+    rirMin:rir.min,
+    rirMax:rir.max,
+    rirLabel:rir.label,
+    rirSource:rir.source,
+    incrementMode:'smallest_available'
+  }
+}
+function cfFsdpProgressionState(run,exerciseId,ex){
+  if(!run||!exerciseId)return null;
+  run.progression=run.progression&&typeof run.progression==='object'?run.progression:{};
+  run.progression.model=CFFSDP_MODEL;
+  run.progression.engineVersion=CFFSDP_ENGINE_VERSION;
+  run.progression.exerciseStates=run.progression.exerciseStates&&typeof run.progression.exerciseStates==='object'?run.progression.exerciseStates:{};
+  let root=run.progression.exerciseStates[exerciseId];
+  if(!root||typeof root!=='object')root=run.progression.exerciseStates[exerciseId]={exerciseId,model:CFFSDP_MODEL,increment:null,contracts:{},lastDecision:null};
+  root.exerciseId=exerciseId;root.model=CFFSDP_MODEL;root.contracts=root.contracts&&typeof root.contracts==='object'?root.contracts:{};
+  let key=cfFsdpContractKey(ex),c=root.contracts[key];
+  if(!c||typeof c!=='object')c=root.contracts[key]={contractKey:key,exposures:0,successes:0,lastWeight:null,nextWeight:null,nextAction:'hold',lastDecision:null,lastExposureKey:'',history:[]};
+  c.history=Array.isArray(c.history)?c.history:[];
+  root.contracts[key]=c;
+  return{root,contract:c,key}
+}
+function cfFsdpSetIncrement(run,exerciseId,increment){
+  let root=run?.progression?.exerciseStates?.[exerciseId];
+  if(!root){run.progression=run.progression||{model:CFFSDP_MODEL,exerciseStates:{},history:[]};run.progression.exerciseStates=run.progression.exerciseStates||{};root=run.progression.exerciseStates[exerciseId]={exerciseId,model:CFFSDP_MODEL,contracts:{},lastDecision:null}}
+  let v=increment===''||increment==null?null:+increment;
+  root.increment=Number.isFinite(v)&&v>0?v:null;
+  return root.increment
+}
+function cfFsdpSetClean(z){
+  if(!z||z.ok===false)return null;
+  let reps=+(z.reps??z.value??0),weight=(z.weight===''||z.weight==null)?null:+z.weight,rir=(z.rir===''||z.rir==null)?null:+z.rir;
+  return{reps:Number.isFinite(reps)?reps:0,weight:Number.isFinite(weight)?weight:null,rir:Number.isFinite(rir)?rir:null,ok:z.ok!==false}
+}
+function cfFsdpQualityOk(opts={}){
+  if(opts.qualityOk===false||opts.techniqueOk===false||opts.romOk===false)return false;
+  let tech=String(opts.technique||'').toLowerCase(),rom=String(opts.rom||'').toLowerCase();
+  if(['poor','borderline','bad','unsafe','unsauber'].includes(tech))return false;
+  if(['partial','poor','bad','unsafe','verkürzt'].includes(rom))return false;
+  return true
+}
+function cfFsdpEvaluate(ex,rawSets,opts={}){
+  let contract=cfFsdpProgressionContract(ex);
+  if(!contract)return{outcome:'invalid',eligible:false,reasons:['prescription_missing']};
+  if(!contract.eligible)return{outcome:'fixed',eligible:false,reasons:['fixed_target'],contract};
+  let sets=(Array.isArray(rawSets)?rawSets:[]).map(cfFsdpSetClean).filter(Boolean),minSets=contract.setMin,maxSets=contract.setMax;
+  if(sets.length<minSets)return{outcome:'incomplete',eligible:false,reasons:['sets_incomplete'],contract,setCount:sets.length};
+  let used=sets,first=used[0],follow=used.slice(1),reasons=[];
+  let firstTop=first.reps>=contract.repMax;
+  let rirKnown=first.rir!=null,rirOk=rirKnown&&first.rir>=contract.rirMin&&first.rir<=contract.rirMax;
+  let followMin=follow.every(z=>z.reps>=contract.repMin);
+  let qualityOk=cfFsdpQualityOk(opts);
+  if(!firstTop)reasons.push('first_set_below_top');
+  if(!rirKnown)reasons.push('rir_missing');else if(!rirOk)reasons.push('rir_outside_guardrail');
+  if(!followMin)reasons.push('followup_below_min');
+  if(!qualityOk)reasons.push('quality_issue');
+  if(sets.length>maxSets)reasons.push('extra_sets_logged');
+  let increase=firstTop&&rirOk&&followMin&&qualityOk;
+  return{
+    outcome:increase?'increase':'hold',eligible:true,increase,
+    reasons,contract,setCount:sets.length,
+    firstSet:{reps:first.reps,weight:first.weight,rir:first.rir,topReached:firstTop,rirOk},
+    followupMinReached:followMin,qualityOk,
+    currentWeight:first.weight
+  }
+}
+function cfFsdpExposureKey(programId,run,dayKey,index,opts={}){
+  if(opts.exposureKey)return String(opts.exposureKey);
+  return `${programId}|${run?.id||''}|W${+run?.week||1}|${dayKey}|${index}`
+}
+function cfFsdpEvaluateExercise(programId,run,dayKey,index,opts={}){
+  let day=cfFsdpDay(programId,dayKey),ex=day?.exercises?.[index];
+  if(!ex)return{outcome:'invalid',eligible:false,reasons:['prescription_missing']};
+  let context=cfFsdpContextKey(programId,+run?.week||1,dayKey,index),name=run?.exerciseChoices?.[context]||ex.exercise,id=run?.exerciseChoiceIds?.[context]||cfFsdpExerciseId(name),L=run?.exerciseLogs?.[cfExLogKey(context,id)]||run?.log?.[context]||null;
+  return Object.assign(cfFsdpEvaluate(ex,L?.sets||opts.sets||[],Object.assign({},opts,{technique:opts.technique??L?.technique,rom:opts.rom??L?.rom,qualityOk:opts.qualityOk??L?.qualityOk})),{programId,dayKey,index,exercise:name,exerciseId:id,context,log:L})
+}
+function cfFsdpCommitEvaluation(programId,run,dayKey,index,opts={}){
+  let day=cfFsdpDay(programId,dayKey),ex=day?.exercises?.[index];
+  if(!run||!ex)return{outcome:'invalid',eligible:false,reasons:['prescription_missing']};
+  let result=cfFsdpEvaluateExercise(programId,run,dayKey,index,opts),ps=cfFsdpProgressionState(run,result.exerciseId,ex);
+  if(!ps)return result;
+  let c=ps.contract,root=ps.root,key=cfFsdpExposureKey(programId,run,dayKey,index,opts),current=result.currentWeight;
+  let increment=+root.increment>0?+root.increment:null,nextWeight=current;
+  if(result.outcome==='increase')nextWeight=(increment!=null&&current!=null)?Math.round((current+increment)*100)/100:null;
+  else if(current==null&&c.lastWeight!=null)nextWeight=c.lastWeight;
+  let nextAction=result.outcome==='increase'?(increment!=null?'increase_exact':'increase_smallest_available'):(result.outcome==='fixed'?'fixed_target':'hold');
+  let event={date:new Date().toISOString(),exposureKey:key,programId,runId:run.id,week:+run.week||1,dayKey,index,exercise:result.exercise,exerciseId:result.exerciseId,contractKey:ps.key,outcome:result.outcome,reasons:[...(result.reasons||[])],weight:current,nextWeight,nextAction,increment,reps:(result.log?.sets||opts.sets||[]).map(z=>+z?.reps||0),firstRir:result.firstSet?.rir??null,qualityOk:result.qualityOk!==false};
+  let existing=c.history.findIndex(x=>x.exposureKey===key),wasNew=existing<0;
+  if(existing>=0)c.history[existing]=event;else c.history.push(event);
+  if(wasNew)c.exposures=(+c.exposures||0)+1;
+  if(wasNew&&result.outcome==='increase')c.successes=(+c.successes||0)+1;
+  c.lastWeight=current;c.nextWeight=nextWeight;c.nextAction=nextAction;c.lastDecision=event;c.lastExposureKey=key;
+  root.lastDecision=event;
+  run.progression.history=Array.isArray(run.progression.history)?run.progression.history:[];
+  let hi=run.progression.history.findIndex(x=>x.exposureKey===key);if(hi>=0)run.progression.history[hi]=event;else run.progression.history.push(event);
+  return Object.assign({},result,{nextWeight,nextAction,increment,event})
+}
+function cfFsdpNextTarget(programId,run,dayKey,index){
+  let day=cfFsdpDay(programId,dayKey),ex=day?.exercises?.[index];if(!run||!ex)return null;
+  let context=cfFsdpContextKey(programId,+run.week||1,dayKey,index),name=run.exerciseChoices?.[context]||ex.exercise,id=run.exerciseChoiceIds?.[context]||cfFsdpExerciseId(name),ps=cfFsdpProgressionState(run,id,ex),c=ps?.contract;
+  let last=cfExLastWeight(name),weight=c?.nextWeight;
+  if(weight==null&&c?.nextAction!=='increase_smallest_available')weight=c?.lastWeight;
+  if(weight==null&&last>0)weight=last;
+  return{exercise:name,exerciseId:id,weight:weight==null?null:+weight,action:c?.nextAction||'hold',increment:ps?.root?.increment??null,contract:cfFsdpProgressionContract(ex),lastDecision:c?.lastDecision||null}
+}
+function cfFsdpMigrateProgressionEngine(s=state){
+  cfFsdpEnsureState(s);
+  for(let id of CFFSDP_PROGRAM_ORDER){
+    for(let run of s.fsdp.programs?.[id]?.runs||[]){
+      run.progression=run.progression&&typeof run.progression==='object'?run.progression:{};
+      run.progression.model=CFFSDP_MODEL;run.progression.engineVersion=CFFSDP_ENGINE_VERSION;
+      run.progression.exerciseStates=run.progression.exerciseStates&&typeof run.progression.exerciseStates==='object'?run.progression.exerciseStates:{};
+      run.progression.history=Array.isArray(run.progression.history)?run.progression.history:[];
+    }
+  }
+  s.fsdp.schemaVersion=CFFSDP_SCHEMA_VERSION;
+  return s
+}
+const cfFsdpMigrateStateBlock4Base=cfFsdpMigrateState;
+cfFsdpMigrateState=function(s){return cfFsdpMigrateProgressionEngine(cfFsdpMigrateStateBlock4Base(s))};
+state=cfFsdpMigrateState(state);save();
+/* ---------- /COALFORGED FSDP QUICK PLANS · BLOCK 4 ---------- */
+</script>
+
+
+<style id="cf-fsdp-block5-style">
+/* ---------- COALFORGED FSDP QUICK PLANS · BLOCK 5 · VISIBLE PROGRAMS + GUIDED WORKOUT ---------- */
+.cf-fsdp-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;border:1px solid #69402a;background:#221915;color:#dc925c;font:700 8px Sora,system-ui;text-transform:uppercase;letter-spacing:.07em}
+.cf-fsdp-schedule{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:9px 0 12px}
+.cf-fsdp-schedule span{min-width:0;padding:7px 2px;border-radius:8px;border:1px solid #29292c;background:#151516;color:#8d857d;text-align:center;font:700 7px Sora,system-ui;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cf-fsdp-schedule span.train{border-color:#523624;background:#211915;color:#d48a55}
+.cf-fsdp-workout-list{display:grid;gap:6px}
+.cf-fsdp-workout-list button{cursor:pointer}
+.cf-fsdp-progress{height:5px;border-radius:999px;background:#29292c;overflow:hidden;margin-top:11px}.cf-fsdp-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#a86e45,#dc6f34)}
+.cf-fsdp-guide{max-width:620px;margin:0 auto;padding-bottom:18px;color:#f1ece5}
+.cf-fsdp-guide-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+.cf-fsdp-guide-head .copy{min-width:0}.cf-fsdp-guide-head .copy span{display:block;color:#817970;font:700 8px Sora;text-transform:uppercase;letter-spacing:.08em}.cf-fsdp-guide-head .copy strong{display:block;margin-top:2px;color:#f1ece5;font:700 16px Sora;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cf-fsdp-guide-head button{min-height:36px;padding:7px 10px;border-radius:9px;background:#19191b;border:1px solid #303034;color:#b9b0a6;font:650 8px Sora}
+.cf-fsdp-ex-progress{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 7px;color:#817970;font:650 8px Sora;text-transform:uppercase;letter-spacing:.06em}.cf-fsdp-ex-progress strong{color:#b98252;font-size:9px}
+.cf-fsdp-setcard{padding:12px;border-radius:13px;border:1px solid #312a26;background:#141415;margin-bottom:9px}
+.cf-fsdp-settitle{display:flex;align-items:center;justify-content:space-between;gap:8px}.cf-fsdp-settitle span{color:#817970;font:700 8px Sora;text-transform:uppercase;letter-spacing:.07em}.cf-fsdp-settitle strong{color:#d88b54;font:700 10px Sora}
+.cf-fsdp-fields{display:grid;grid-template-columns:1.2fr .9fr .9fr;gap:7px;margin-top:9px}.cf-fsdp-field{min-width:0;padding:8px;border-radius:10px;background:#1b1b1d;border:1px solid #303034}.cf-fsdp-field label{display:block;color:#817970;font:600 7px Manrope;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}.cf-fsdp-field input{width:100%;height:42px;min-height:42px;padding:6px 7px;border-radius:8px;background:#151516;border:1px solid #36363a;color:#f1ece5;text-align:center;font:700 20px Rajdhani,monospace}.cf-fsdp-field button{width:100%;height:42px;min-height:42px;border-radius:8px;background:#151516;border:1px solid #36363a;color:#f1ece5;font:700 18px Rajdhani,monospace}.cf-fsdp-field button.empty{color:#7f7770}
+.cf-fsdp-target{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px;padding:8px 9px;border-radius:9px;background:#19191a;border:1px solid #29292c}.cf-fsdp-target span{color:#817970;font:600 8px Manrope}.cf-fsdp-target strong{color:#b9b0a6;font:700 9px Sora;text-align:right}
+.cf-fsdp-quality{width:100%;margin-top:7px;min-height:38px;border-radius:9px;background:#19191a;border:1px solid #303034;color:#9f978e;font:650 8px Sora}.cf-fsdp-quality.issue{background:#281b16;border-color:#754126;color:#e18c55}
+.cf-fsdp-rir-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}.cf-fsdp-rir-grid button{min-height:48px;border-radius:10px;background:#1a1a1c;border:1px solid #343438;color:#f1ece5;font:750 15px Rajdhani}.cf-fsdp-rir-grid button.target{border-color:#8b5433;color:#eda166;background:#241a15}
+.cf-fsdp-transition{padding:14px;border-radius:13px;border:1px solid #342d29;background:#151516;margin-top:8px;text-align:center}.cf-fsdp-transition strong{display:block;color:#f1ece5;font:700 14px Sora}.cf-fsdp-transition p{margin:5px 0 11px;color:#8f877f;font:500 9px/1.45 Manrope}.cf-fsdp-transition .actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.cf-fsdp-transition .actions.one{grid-template-columns:1fr}.cf-fsdp-transition button{min-height:42px;border-radius:9px;background:#1b1b1d;border:1px solid #303034;color:#f1ece5;font:700 9px Sora}.cf-fsdp-transition button.primary{background:linear-gradient(180deg,#e38347,#cf642d);border-color:#d5682f;color:#120b07}
+.cf-fsdp-plan-day{margin:9px 0;padding:10px;border-radius:11px;background:#151516;border:1px solid #29292c}.cf-fsdp-plan-day>strong{display:block;color:#f1ece5;font:700 11px Sora;margin-bottom:7px}.cf-fsdp-plan-row{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:7px;align-items:center;padding:6px 0;border-top:1px solid #242426}.cf-fsdp-plan-row:first-of-type{border-top:0}.cf-fsdp-plan-row b{color:#9e948a;font:700 8px Rajdhani}.cf-fsdp-plan-row span{min-width:0;color:#bdb4aa;font:600 8px Manrope;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cf-fsdp-plan-row small{color:#817970;font:650 8px Rajdhani;white-space:nowrap}
+.cf-fsdp-history{display:grid;gap:7px}.cf-fsdp-history-row{padding:10px;border-radius:10px;background:#151516;border:1px solid #29292c}.cf-fsdp-history-row strong{display:block;color:#f1ece5;font:650 10px Sora}.cf-fsdp-history-row span{display:block;margin-top:3px;color:#817970;font:500 8px Manrope}
+.cf-fsdp-nextaction{margin-top:7px;padding:9px;border-radius:9px;border:1px solid #332a25;background:#191716}.cf-fsdp-nextaction span{display:block;color:#817970;font:600 7px Manrope;text-transform:uppercase}.cf-fsdp-nextaction strong{display:block;margin-top:3px;color:#d88b54;font:700 9px Sora}
+@media(max-width:420px){.cf-fsdp-fields{grid-template-columns:1.15fr .85fr .85fr}.cf-fsdp-field{padding:7px 5px}.cf-fsdp-schedule{gap:3px}.cf-fsdp-schedule span{font-size:6.5px}}
+/* ---------- /COALFORGED FSDP QUICK PLANS · BLOCK 5 ---------- */
+</style>
+
+<script id="cf-fsdp-block5-js">
+/* ---------- COALFORGED FSDP QUICK PLANS · BLOCK 5 · VISIBLE PROGRAMS + GUIDED WORKOUT ---------- */
+const CFFSDP_BLOCK5_VERSION=1;
+const cfFsdpBlock5RenderProgramBase=renderProgramView;
+const cfFsdpBlock5RenderTrainingHubBase=renderTrainingHub;
+const cfFsdpBlock5RenderHomeBase=renderHome;
+const cfFsdpBlock5OpenProgramBase=openProgram;
+const cfFsdpBlock5HubPlansBase=cf206tHubPlans;
+
+function cfFsdpUiState(){
+  cfFsdpEnsureState();
+  state.fsdp.ui=state.fsdp.ui&&typeof state.fsdp.ui==='object'?state.fsdp.ui:{};
+  if(!('currentProgramId' in state.fsdp.ui))state.fsdp.ui.currentProgramId='';
+  if(!('openProgramId' in state.fsdp.ui))state.fsdp.ui.openProgramId='';
+  return state.fsdp.ui
+}
+function cfFsdpIsProgram(id){return !!CFFSDP_CATALOG[id]}
+function cfFsdpCurrentProgramId(){let id=cfFsdpUiState().currentProgramId;return cfFsdpIsProgram(id)?id:''}
+function cfFsdpTrainingSequence(programId){let d=cfFsdpCatalogEntry(programId);return (d?.schedule||[]).filter(x=>x&&x!=='OFF')}
+function cfFsdpCurrentSequenceIndex(run,programId){let seq=cfFsdpTrainingSequence(programId);if(!seq.length)return 0;let i=Math.max(0,+run?.dayIndex||0);return i%seq.length}
+function cfFsdpCurrentDayKey(programId,run=cfFsdpRun(programId)){let seq=cfFsdpTrainingSequence(programId);return seq[cfFsdpCurrentSequenceIndex(run,programId)]||cfFsdpCatalogEntry(programId)?.days?.[0]?.key||''}
+function cfFsdpSessionKey(programId,run,dayKey=cfFsdpCurrentDayKey(programId,run),sequenceIndex=cfFsdpCurrentSequenceIndex(run,programId)){
+  if(run?.workout?.sessionKey&&run.workout.dayKey===dayKey)return run.workout.sessionKey;
+  return `${programId}|${run?.id||''}|W${+run?.week||1}|D${sequenceIndex}|${dayKey}`
+}
+function cfFsdpContextFor(programId,run,index){let dayKey=run?.workout?.dayKey||cfFsdpCurrentDayKey(programId,run),si=run?.workout?.sequenceIndex??cfFsdpCurrentSequenceIndex(run,programId);return `${cfFsdpSessionKey(programId,run,dayKey,si)}|E${index}`}
+function cfFsdpLogFor(programId,run,index){
+  let dayKey=run?.workout?.dayKey||cfFsdpCurrentDayKey(programId,run),day=cfFsdpDay(programId,dayKey),ex=day?.exercises?.[index];if(!ex)return null;
+  let context=cfFsdpContextFor(programId,run,index),id=cfFsdpExerciseId(ex.exercise);
+  run.exerciseChoiceIds=run.exerciseChoiceIds||{};run.exerciseChoices=run.exerciseChoices||{};
+  run.exerciseChoiceIds[context]=id;run.exerciseChoices[context]=cfExName(id,ex.exercise);
+  return cfExCanonicalLog(run,context,ex.exercise,run.log?.[context]||null)
+}
+function cfFsdpPlannedSets(programId,run,index){
+  let day=cfFsdpDay(programId,run?.workout?.dayKey||cfFsdpCurrentDayKey(programId,run)),ex=day?.exercises?.[index];if(!ex)return 0;
+  let w=run?.workout;if(!w)return cfFsdpSetMin(ex);w.plannedSets=w.plannedSets||{};
+  let k=String(index),n=+w.plannedSets[k];if(!(n>0))w.plannedSets[k]=n=cfFsdpSetMin(ex);return Math.max(cfFsdpSetMin(ex),Math.min(cfFsdpSetMax(ex),n))
+}
+function cfFsdpDayStats(programId,run=cfFsdpRun(programId)){
+  let dayKey=run?.workout?.dayKey||cfFsdpCurrentDayKey(programId,run),day=cfFsdpDay(programId,dayKey),done=0,total=0,volume=0;
+  for(let i=0;i<(day?.exercises||[]).length;i++){
+    let ex=day.exercises[i],n=run?.workout?cfFsdpPlannedSets(programId,run,i):cfFsdpSetMin(ex),L=cfFsdpLogFor(programId,run,i),sets=(L?.sets||[]).slice(0,n);total+=n;
+    for(let z of sets)if(z?.ok){done++;volume+=(+z.weight||0)*(+z.reps||0)}
+  }
+  return{dayKey,day,done,total,volume,pct:total?Math.round(done/total*100):0}
+}
+function cfFsdpProgramPhase(programId,run=cfFsdpRun(programId)){let seq=cfFsdpTrainingSequence(programId),i=cfFsdpCurrentSequenceIndex(run,programId);return `Woche ${+run?.week||1} · Training ${i+1}/${seq.length||1}`}
+function cfFsdpProgramIcon(programId){return programId.includes('lats')?'L':'F'}
+function cfFsdpProgramRow(programId){let def=cfFsdpCatalogEntry(programId),run=cfFsdpRun(programId),st=cfFsdpDayStats(programId,run),active=cfFsdpCurrentProgramId()===programId;return `<button class="cf206t-program-row ${active?'active':''}" onclick="cfFsdpOpenProgram('${programId}')"><span class="ico">${cfFsdpProgramIcon(programId)}</span><span><strong>${esc(def.name)}</strong><small>${esc(cfFsdpProgramPhase(programId,run))} · ${st.done}/${st.total} Sätze</small></span><span class="arrow">›</span></button>`}
+function cfFsdpSetCurrentProgram(programId){let ui=cfFsdpUiState();ui.currentProgramId=programId;state.fsdp.activeProgramId=programId;save()}
+function cfFsdpOpenProgram(programId){
+  if(!cfFsdpIsProgram(programId))return;
+  let ui=cfFsdpUiState();ui.currentProgramId=programId;ui.openProgramId=programId;ui.programMode='workout';state.fsdp.activeProgramId=programId;state.activeView='program';cf206t.mode='workout';cf206t.finish=null;save();render();window.scrollTo({top:0,behavior:'smooth'})
+}
+openProgram=function(p){
+  if(cfFsdpIsProgram(p))return cfFsdpOpenProgram(p);
+  let ui=cfFsdpUiState();ui.currentProgramId='';ui.openProgramId='';save();return cfFsdpBlock5OpenProgramBase(p)
+};
+function cfFsdpSetDay(programId,sequenceIndex){
+  let run=cfFsdpRun(programId);if(!run)return;if(run.workout?.status==='active')return alert('Beende das laufende Workout, bevor du den Trainingstag wechselst.');
+  let seq=cfFsdpTrainingSequence(programId);run.dayIndex=Math.max(0,Math.min(seq.length-1,+sequenceIndex||0));save();render()
+}
+function cfFsdpDayRail(programId,run){let seq=cfFsdpTrainingSequence(programId),cur=cfFsdpCurrentSequenceIndex(run,programId);return `<div class="cf206t-dayrail">${seq.map((key,i)=>{let d=cfFsdpDay(programId,key);return `<button class="${i===cur?'active':''}" onclick="cfFsdpSetDay('${programId}',${i})"><strong>${i===cur?'Heute':`Tag ${i+1}`}</strong>${esc(d?.label||key)}</button>`}).join('')}</div>`}
+function cfFsdpScheduleHtml(programId){let d=cfFsdpCatalogEntry(programId);return `<div class="cf-fsdp-schedule">${(d?.schedule||[]).map(x=>`<span class="${x==='OFF'?'':'train'}">${esc(x==='OFF'?'OFF':(cfFsdpDay(programId,x)?.label||x))}</span>`).join('')}</div>`}
+function cfFsdpEstimateLabel(programId){return programId.startsWith('jan_45_60_')?'45–60 Min.':'kompakt'}
+function cfFsdpExerciseRows(programId,run,clickable=true){
+  let st=cfFsdpDayStats(programId,run),day=st.day;if(!day)return '';
+  return (day.exercises||[]).map((ex,i)=>{let n=run.workout?cfFsdpPlannedSets(programId,run,i):cfFsdpSetMin(ex),L=cfFsdpLogFor(programId,run,i),done=(L?.sets||[]).slice(0,n).filter(z=>z?.ok).length,role=cfFsdpExerciseRole(ex)==='isolation'?'Isolation':'Compound',setLabel=cfFsdpSetLabel(ex);return `<button class="cf206t-exrow ${done>=n?'done':''}" ${clickable?`onclick="cfFsdpJumpExercise('${programId}',${i})"`:''}><span class="cf206t-thumb" style="background-image:url('${i%2?'cf-training-athlete.webp':'cf-training-plates.webp'}')"></span><span class="cf206t-exmain"><strong>${i+1}. ${esc(ex.exercise)}</strong><span>${esc(role)} · ${esc(setLabel)} × ${esc(ex.repLabel)}</span></span><span class="cf206t-exstatus"><small>${done}/${n}</small><span class="cf206t-check ${done>=n?'done':''}">${done>=n?'✓':'›'}</span></span></button>`}).join('')
+}
+function cfFsdpHubCurrent(programId){
+  let def=cfFsdpCatalogEntry(programId),run=cfFsdpRun(programId),st=cfFsdpDayStats(programId,run),running=run?.workout?.status==='active';
+  return `<section class="cf206t-phase"><div class="cf206t-label">COALFORGED · First Set Double Progression</div><strong>${esc(cfFsdpProgramPhase(programId,run))}</strong><small>${esc(def.name)}</small></section>${cfFsdpDayRail(programId,run)}<section class="cf206t-workout"><div class="cf206t-label">${esc(st.day?.label||st.dayKey)}</div><h2>${esc(def.name)}</h2><div class="cf206t-workout-sub">${esc(st.day?.label||'Training')} · First Set Double Progression</div><div class="cf206t-meta"><span>◷ ${cfFsdpEstimateLabel(programId)}</span><span>▦ ${st.day?.exercises?.length||0} Übungen</span><span>✓ ${st.done}/${st.total} Sätze</span></div><button class="cf206t-primary" onclick="cfFsdpOpenProgram('${programId}')">${running?'Workout fortsetzen':'Workout öffnen'}</button><div class="cf-fsdp-progress"><i style="width:${st.pct}%"></i></div></section><div class="cf206t-section"><strong>Planstruktur</strong><span>${(cfFsdpCatalogEntry(programId)?.schedule||[]).filter(x=>x!=='OFF').length} Einheiten / Zykluswoche</span></div>${cfFsdpScheduleHtml(programId)}`
+}
+function cfFsdpHubExercises(programId){let run=cfFsdpRun(programId);return `<div class="cf206t-section"><strong>Heutige Übungen</strong><button onclick="openExerciseLibrary()">Bibliothek öffnen ›</button></div><div class="cf-fsdp-workout-list">${cfFsdpExerciseRows(programId,run,false)}</div>`}
+cf206tHubPlans=function(){return `<div class="cf206t-section"><strong>Trainingsprogramme</strong><button onclick="openSettings()">Durchläufe verwalten ›</button></div><div class="cf206t-program-list">${['kilo','power','revenge'].map(cf206tProgramRow).join('')}<div class="cf206t-program-row" style="opacity:.55"><span class="ico">B</span><span><strong>Bennet the Bodybuilder</strong><small>Quellen-Audit folgt in 2.1.0</small></span><span class="arrow">›</span></div></div><div class="cf206t-section"><strong>COALFORGED Kurzpläne</strong><span>First Set Double Progression</span></div><div class="cf206t-program-list">${CFFSDP_PROGRAM_ORDER.map(cfFsdpProgramRow).join('')}</div>`};
+renderTrainingHub=function(){
+  let id=cfFsdpCurrentProgramId(),tab=cf206t.hubTab||'current';
+  if(!id)return cfFsdpBlock5RenderTrainingHubBase();
+  let def=cfFsdpCatalogEntry(id),run=cfFsdpRun(id);
+  return `<div class="cf206t"><header class="cf206t-head"><div><h1>Training</h1><p>${esc(def.name)} · ${esc(cfFsdpProgramPhase(id,run))}</p></div><button class="cf206t-icon" onclick="openSettings()" aria-label="Training verwalten">⌁</button></header><div class="cf206t-tabs"><button class="${tab==='current'?'active':''}" onclick="cf206tSetHub('current')">Aktuell</button><button class="${tab==='exercises'?'active':''}" onclick="cf206tSetHub('exercises')">Übungen</button><button class="${tab==='plan'?'active':''}" onclick="cf206tSetHub('plan')">Plan</button></div>${tab==='plan'?cf206tHubPlans():tab==='exercises'?cfFsdpHubExercises(id):cfFsdpHubCurrent(id)}</div>`
+};
+
+function cfFsdpWorkoutDraft(run,index,setIndex){let w=run.workout;w.drafts=w.drafts||{};let k=`${index}|${setIndex}`;return w.drafts[k]||(w.drafts[k]={weight:'',reps:'',rir:null})}
+function cfFsdpDraftField(programId,field,value){let run=cfFsdpRun(programId),w=run?.workout;if(!w)return;let d=cfFsdpWorkoutDraft(run,+w.exerciseIndex||0,+w.setIndex||0);if(field==='weight'||field==='reps')d[field]=value;save()}
+function cfFsdpSetRir(programId,value){let run=cfFsdpRun(programId),w=run?.workout;if(!w)return;let d=cfFsdpWorkoutDraft(run,+w.exerciseIndex||0,+w.setIndex||0);d.rir=+value;save();closeSheet();render()}
+function cfFsdpOpenRir(programId){
+  let run=cfFsdpRun(programId),w=run?.workout,day=cfFsdpDay(programId,w?.dayKey),ex=day?.exercises?.[w?.exerciseIndex||0];if(!w||!ex)return;let g=cfFsdpRirGuardrail(ex),vals=[0,1,2,3,4,5,6];
+  openSheet(`<div class="row"><div><div class="meta">RIR AUSWÄHLEN</div><h2 style="margin:2px 0 0">Wie viele Wiederholungen waren noch drin?</h2></div><button onclick="closeSheet()">×</button></div><div class="meta" style="margin-top:7px">Ziel für ${esc(ex.exercise)}: ${esc(g.label)}</div><div class="cf-fsdp-rir-grid">${vals.map(v=>`<button class="${v>=g.min&&v<=g.max?'target':''}" onclick="cfFsdpSetRir('${programId}',${v})">${v}</button>`).join('')}</div>`)
+}
+function cfFsdpStartWorkout(programId){
+  let run=cfFsdpRun(programId),dayKey=cfFsdpCurrentDayKey(programId,run),si=cfFsdpCurrentSequenceIndex(run,programId),day=cfFsdpDay(programId,dayKey);if(!run||!day)return;
+  if(run.workout?.status==='active')return cfFsdpOpenProgram(programId);
+  run.workout={status:'active',programId,week:+run.week||1,dayKey,sequenceIndex:si,sessionKey:`${programId}|${run.id}|W${+run.week||1}|D${si}|${dayKey}`,startedAt:Date.now(),exerciseIndex:0,setIndex:0,plannedSets:{},drafts:{},qualityIssues:{},awaitingOptional:false,awaitingFinish:false};
+  for(let i=0;i<day.exercises.length;i++)run.workout.plannedSets[String(i)]=cfFsdpSetMin(day.exercises[i]);
+  save();render();window.scrollTo({top:0,behavior:'smooth'})
+}
+function cfFsdpJumpExercise(programId,index){
+  let run=cfFsdpRun(programId);if(!run)return;if(run.workout?.status!=='active')return;let target=Math.max(0,+index||0),L=cfFsdpLogFor(programId,run,target),n=cfFsdpPlannedSets(programId,run,target),firstOpen=0;while(firstOpen<n&&L?.sets?.[firstOpen]?.ok)firstOpen++;if(firstOpen>=n)return toastMsg('Übung bereits abgeschlossen. ✓');run.workout.exerciseIndex=target;run.workout.setIndex=firstOpen;run.workout.awaitingOptional=false;run.workout.awaitingFinish=false;save();render();window.scrollTo({top:0,behavior:'smooth'})
+}
+function cfFsdpOpenExerciseList(programId){let run=cfFsdpRun(programId),day=cfFsdpDay(programId,run?.workout?.dayKey||cfFsdpCurrentDayKey(programId,run));if(!run||!day)return;openSheet(`<div class="row"><div><div class="meta">WORKOUT-NAVIGATION</div><h2 style="margin:2px 0 0">Übung wählen</h2></div><button onclick="closeSheet()">×</button></div><div class="cf-fsdp-workout-list" style="margin-top:10px">${(day.exercises||[]).map((ex,i)=>`<button class="cf206t-exrow" onclick="closeSheet();cfFsdpJumpExercise('${programId}',${i})"><span class="cf206t-thumb" style="background-image:url('${i%2?'cf-training-athlete.webp':'cf-training-plates.webp'}')"></span><span class="cf206t-exmain"><strong>${i+1}. ${esc(ex.exercise)}</strong><span>${esc(cfFsdpSetLabel(ex))} × ${esc(ex.repLabel)}</span></span><span class="cf206t-exstatus"><span class="cf206t-check">›</span></span></button>`).join('')}</div>`)}
+function cfFsdpToggleQuality(programId){let run=cfFsdpRun(programId),w=run?.workout;if(!w)return;w.qualityIssues=w.qualityIssues||{};let k=String(w.exerciseIndex);w.qualityIssues[k]=!w.qualityIssues[k];save();render()}
+function cfFsdpRestSeconds(ex){return cfFsdpExerciseRole(ex)==='isolation'?90:120}
+function cfFsdpPrefill(programId,run,index,setIndex){
+  let day=cfFsdpDay(programId,run.workout.dayKey),ex=day?.exercises?.[index],L=cfFsdpLogFor(programId,run,index),z=L?.sets?.[setIndex]||{},d=cfFsdpWorkoutDraft(run,index,setIndex),prev=setIndex>0?L?.sets?.[setIndex-1]:null,target=cfFsdpNextTarget(programId,run,run.workout.dayKey,index),last=cfExLastWeight(ex?.exercise||'');
+  let weight=d.weight!==''?d.weight:(z.weight!==''&&z.weight!=null?z.weight:(prev?.weight!=null?prev.weight:(target?.weight!=null?target.weight:(last||''))));
+  let reps=d.reps!==''?d.reps:(z.reps!==''&&z.reps!=null?z.reps:'');let rir=d.rir!=null?d.rir:(z.rir!==''&&z.rir!=null?+z.rir:null);return{weight,reps,rir,target}
+}
+function cfFsdpAdvanceExercise(programId){
+  let run=cfFsdpRun(programId),w=run?.workout,day=cfFsdpDay(programId,w?.dayKey);if(!w||!day)return;
+  let next=(+w.exerciseIndex||0)+1;if(next>=day.exercises.length){w.awaitingFinish=true;w.awaitingOptional=false;save();render();return}
+  w.exerciseIndex=next;w.setIndex=0;w.awaitingOptional=false;w.awaitingFinish=false;save();render();window.scrollTo({top:0,behavior:'smooth'})
+}
+function cfFsdpAddOptionalSet(programId){let run=cfFsdpRun(programId),w=run?.workout,day=cfFsdpDay(programId,w?.dayKey),i=+w?.exerciseIndex||0,ex=day?.exercises?.[i];if(!w||!ex)return;let max=cfFsdpSetMax(ex);w.plannedSets[String(i)]=max;w.setIndex=Math.max(0,max-1);w.awaitingOptional=false;save();render()}
+function cfFsdpSaveSet(programId){
+  let run=cfFsdpRun(programId),w=run?.workout,day=cfFsdpDay(programId,w?.dayKey),i=+w?.exerciseIndex||0,s=+w?.setIndex||0,ex=day?.exercises?.[i];if(!w||!ex)return;
+  let wi=document.getElementById('cfFsdpWeight'),ri=document.getElementById('cfFsdpReps'),d=cfFsdpWorkoutDraft(run,i,s),weightRaw=wi?wi.value:d.weight,repsRaw=ri?ri.value:d.reps;
+  if(weightRaw===''||weightRaw==null)return alert('Bitte Gewicht eintragen. Bei Körpergewicht ohne Zusatzlast: 0.');
+  let weight=+weightRaw,reps=+repsRaw,rir=d.rir;if(!Number.isFinite(weight)||weight<0)return alert('Bitte ein gültiges Gewicht eintragen.');if(!Number.isFinite(reps)||reps<=0)return alert('Bitte die tatsächlich geschafften Wiederholungen eintragen.');if(rir==null||!Number.isFinite(+rir))return alert('Bitte RIR auswählen.');
+  let L=cfFsdpLogFor(programId,run,i);L.sets=L.sets||[];L.sets[s]={weight:Math.round(weight*100)/100,reps:Math.round(reps),rir:+rir,ok:true};cfExRemember(ex.exercise,L.sets[s],programId);
+  delete w.drafts[`${i}|${s}`];let planned=cfFsdpPlannedSets(programId,run,i),min=cfFsdpSetMin(ex),max=cfFsdpSetMax(ex);if(state.settings?.autoRest)startTimer(cfFsdpRestSeconds(ex));
+  if(s+1<planned){w.setIndex=s+1;save();render();return}
+  if(planned===min&&max>min){w.awaitingOptional=true;save();render();return}
+  save();cfFsdpAdvanceExercise(programId)
+}
+function cfFsdpDecisionText(x){if(!x)return'Gewicht halten';if(x.outcome==='increase')return x.nextAction==='increase_exact'&&x.nextWeight!=null?`Nächstes Mal ${fmtWeight(x.nextWeight)} kg`:'Nächstes Mal kleinstmögliche Einheit erhöhen';if(x.outcome==='fixed')return'Feste Zielvorgabe – keine automatische Lastprogression';return'Gewicht halten'}
+function cfFsdpFinishWorkout(programId){
+  let run=cfFsdpRun(programId),w=run?.workout,day=cfFsdpDay(programId,w?.dayKey);if(!run||!w||!day)return;
+  let decisions=[],done=0,total=0,volume=0;for(let i=0;i<day.exercises.length;i++){
+    let ex=day.exercises[i],n=cfFsdpPlannedSets(programId,run,i),L=cfFsdpLogFor(programId,run,i),sets=(L?.sets||[]).slice(0,n);total+=n;if(sets.filter(z=>z?.ok).length<n)return alert(`Noch nicht alle geplanten Sätze bei „${ex.exercise}“ abgeschlossen.`);for(let z of sets)if(z?.ok){done++;volume+=(+z.weight||0)*(+z.reps||0)}
+    let issue=!!w.qualityIssues?.[String(i)],res=cfFsdpCommitEvaluation(programId,run,w.dayKey,i,{sets,qualityOk:!issue,techniqueOk:!issue,romOk:!issue,exposureKey:`${w.sessionKey}|E${i}`});decisions.push({exercise:ex.exercise,...res})
+  }
+  let duration=Math.max(0,Math.round((Date.now()-(+w.startedAt||Date.now()))/1000)),completed={sessionKey:w.sessionKey,date:new Date().toISOString(),programId,week:w.week,dayIndex:w.sequenceIndex,dayKey:w.dayKey,label:day.label,duration,done,total,volume,decisions:decisions.map(x=>({exercise:x.exercise,outcome:x.outcome,nextAction:x.nextAction,nextWeight:x.nextWeight,reasons:x.reasons||[]}))};
+  run.completed=Array.isArray(run.completed)?run.completed:[];run.completed.push(completed);state.fsdp.finishSummary={programId,programName:cfFsdpCatalogEntry(programId)?.name||programId,dayLabel:day.label,duration,done,total,volume,decisions:completed.decisions};run.workout=null;
+  let seq=cfFsdpTrainingSequence(programId),next=(+run.dayIndex||0)+1;if(next>=seq.length){run.dayIndex=0;run.week=(+run.week||1)+1}else run.dayIndex=next;rebuildExerciseWeights();save();render();window.scrollTo({top:0,behavior:'smooth'})
+}
+function cfFsdpClearFinish(){state.fsdp.finishSummary=null;cfFsdpUiState().openProgramId='';state.activeView='training';save();render();window.scrollTo({top:0,behavior:'smooth'})}
+function cfFsdpFinishScreen(programId){let f=state.fsdp?.finishSummary;if(!f||f.programId!==programId)return cfFsdpProgramOverview(programId);let pct=f.total?Math.round(f.done/f.total*100):100,inc=f.decisions.filter(x=>x.outcome==='increase').length;return `<div class="cf206t cf206t-complete"><div class="cf206t-trophy">♜</div><h1>Workout abgeschlossen!<span>${esc(f.dayLabel)}</span></h1><div class="cf206t-complete-sub">FSDP ausgewertet. Deine Übungszustände und nächsten Progressionsschritte sind gespeichert.</div><div class="cf206t-complete-grid"><div class="cf206t-complete-stat"><span>Gesamtdauer</span><strong>${fmtDuration(f.duration||0)}</strong></div><div class="cf206t-complete-stat"><span>Sätze</span><strong>${f.done}/${f.total}</strong></div><div class="cf206t-complete-stat"><span>Volumen</span><strong>${Math.round(f.volume||0).toLocaleString('de-DE')} kg</strong></div><div class="cf206t-complete-stat"><span>Steigerungen</span><strong>${inc}</strong></div></div><div class="cf206t-complete-focus"><strong>Progression</strong>${f.decisions.map(x=>`<div class="cf-fsdp-nextaction"><span>${esc(x.exercise)}</span><strong>${esc(cfFsdpDecisionText(x))}</strong></div>`).join('')}</div><button class="cf206t-primary" onclick="cfFsdpClearFinish()">Zurück zur Trainingsübersicht</button></div>`}
+function cfFsdpWorkoutSeconds(run){let w=run?.workout;if(!w?.startedAt)return 0;return Math.max(0,Math.round((Date.now()-w.startedAt)/1000))}
+function cfFsdpProgramOverview(programId){
+  let def=cfFsdpCatalogEntry(programId),run=cfFsdpRun(programId),st=cfFsdpDayStats(programId,run),running=run.workout?.status==='active';return `<div class="cf206t">${cf206tBackHead('Training',def.name,"setView('training')")}<div class="cf206t-workout-nav"><button class="active" onclick="cfFsdpUiMode('${programId}','workout')">Workout</button><button onclick="cfFsdpUiMode('${programId}','plan')">Plan</button><button onclick="cfFsdpUiMode('${programId}','history')">Verlauf</button></div><section class="cf206t-workout-detail"><div class="cf206t-label">${esc(st.day?.label||st.dayKey)}</div><h1>${esc(def.name)}</h1><p>${esc(cfFsdpProgramPhase(programId,run))} · First Set Double Progression</p><div class="cf206t-detail-stats"><span>◷ ${cfFsdpEstimateLabel(programId)}</span><span>▦ ${st.day?.exercises?.length||0} Übungen</span><span>✓ ${st.done}/${st.total}</span></div></section><div class="cf206t-section"><strong>Übungsübersicht</strong><span>${st.pct}% abgeschlossen</span></div><div class="cf206t-exlist">${cfFsdpExerciseRows(programId,run,false)}</div><div class="cf206t-bottomcta"><button class="cf206t-primary" onclick="cfFsdpStartWorkout('${programId}')">${running?'Workout fortsetzen':'Workout starten'}</button></div></div>`
+}
+function cfFsdpUiMode(programId,mode){let ui=cfFsdpUiState();ui.programMode=mode;ui.openProgramId=programId;save();render();window.scrollTo({top:0,behavior:'smooth'})}
+function cfFsdpPlanScreen(programId){let def=cfFsdpCatalogEntry(programId);return `<div class="cf206t">${cf206tBackHead('Training',def.name,"cfFsdpUiMode('"+programId+"','workout')")}<div class="cf206t-workout-nav"><button onclick="cfFsdpUiMode('${programId}','workout')">Workout</button><button class="active">Plan</button><button onclick="cfFsdpUiMode('${programId}','history')">Verlauf</button></div><section class="cf206t-phase"><div class="cf206t-label">COALFORGED Kurzplan</div><strong>${esc(def.name)}</strong><small>Progression: First Set Double Progression</small></section>${cfFsdpScheduleHtml(programId)}${(def.days||[]).map(d=>`<div class="cf-fsdp-plan-day"><strong>${esc(d.label)}</strong>${d.exercises.map(ex=>`<div class="cf-fsdp-plan-row"><b>${ex.slot}</b><span>${esc(ex.exercise)}</span><small>${esc(cfFsdpSetLabel(ex))} × ${esc(ex.repLabel)}</small></div>`).join('')}</div>`).join('')}</div>`}
+function cfFsdpHistoryScreen(programId){let def=cfFsdpCatalogEntry(programId),run=cfFsdpRun(programId),hist=[...(run.completed||[])].reverse();return `<div class="cf206t">${cf206tBackHead('Training',def.name,"cfFsdpUiMode('"+programId+"','workout')")}<div class="cf206t-workout-nav"><button onclick="cfFsdpUiMode('${programId}','workout')">Workout</button><button onclick="cfFsdpUiMode('${programId}','plan')">Plan</button><button class="active">Verlauf</button></div><div class="cf-fsdp-history">${hist.length?hist.map(x=>`<div class="cf-fsdp-history-row"><strong>${esc(x.label||x.dayKey||'Workout')}</strong><span>${esc(String(x.date||'').slice(0,10))} · ${x.done||0}/${x.total||0} Sätze · ${fmtDuration(+x.duration||0)}</span></div>`).join(''):'<div class="cf206t-empty">Noch keine abgeschlossene Einheit in diesem Plan.</div>'}</div></div>`}
+function cfFsdpGuidedScreen(programId){
+  let def=cfFsdpCatalogEntry(programId),run=cfFsdpRun(programId),w=run.workout,day=cfFsdpDay(programId,w.dayKey),i=+w.exerciseIndex||0,ex=day?.exercises?.[i];if(!w||!day||!ex)return cfFsdpProgramOverview(programId);
+  if(w.awaitingFinish)return `<div class="cf-fsdp-guide">${cf206tBackHead('Workout',def.name,"setView('training')")}<section class="cf206t-workout-detail"><div class="cf206t-label">Bereit zum Abschluss</div><h1>${esc(day.label)}</h1><p>${day.exercises.length} Übungen vollständig protokolliert.</p><div class="cf206t-detail-stats"><span>◷ ${fmtDuration(cfFsdpWorkoutSeconds(run))}</span><span>✓ ${cfFsdpDayStats(programId,run).done}/${cfFsdpDayStats(programId,run).total}</span></div></section><div class="cf-fsdp-transition"><strong>Workout abschließen?</strong><p>Erst jetzt werden die FSDP-Entscheidungen final geschrieben und der nächste Trainingstag aktiviert.</p><div class="actions one"><button class="primary" onclick="cfFsdpFinishWorkout('${programId}')">Workout abschließen</button></div></div></div>`;
+  let n=cfFsdpPlannedSets(programId,run,i),s=Math.min(+w.setIndex||0,Math.max(0,n-1)),L=cfFsdpLogFor(programId,run,i),pref=cfFsdpPrefill(programId,run,i,s),guard=cfFsdpRirGuardrail(ex),issue=!!w.qualityIssues?.[String(i)],doneSets=(L?.sets||[]).slice(0,n).filter(z=>z?.ok).length;
+  if(w.awaitingOptional)return `<div class="cf-fsdp-guide"><div class="cf-fsdp-guide-head"><div class="copy"><span>Übung ${i+1} / ${day.exercises.length}</span><strong>${esc(ex.exercise)}</strong></div><button onclick="cfFsdpOpenExerciseList('${programId}')">Übungen</button></div><section class="cf206t-exhero"><div class="cf206t-label">${esc(cfFsdpSetLabel(ex))} Sätze · ${esc(ex.repLabel)}</div><h1>${esc(ex.exercise)}</h1><p>Die Mindestanzahl ist erledigt.</p></section><div class="cf-fsdp-transition"><strong>Noch einen Satz?</strong><p>Die Vorlage erlaubt ${cfFsdpSetMin(ex)}–${cfFsdpSetMax(ex)} Sätze. Entscheide jetzt, ob du den optionalen Satz noch machst.</p><div class="actions"><button onclick="cfFsdpAddOptionalSet('${programId}')">+ ${cfFsdpSetMax(ex)}. Satz</button><button class="primary" onclick="cfFsdpAdvanceExercise('${programId}')">Nächste Übung</button></div></div></div>`;
+  let action=pref.target?.action==='increase_smallest_available'?'kleinstmögliche Einheit erhöhen':pref.target?.action==='increase_exact'&&pref.target?.weight!=null?`${fmtWeight(pref.target.weight)} kg`:pref.target?.weight!=null?`${fmtWeight(pref.target.weight)} kg halten`:'Startgewicht frei wählen';
+  return `<div class="cf-fsdp-guide"><div class="cf-fsdp-guide-head"><div class="copy"><span>${esc(day.label)} · Übung ${i+1}/${day.exercises.length}</span><strong>${esc(def.name)}</strong></div><button onclick="cfFsdpOpenExerciseList('${programId}')">Übungen</button></div><div class="cf-fsdp-ex-progress"><span>${esc(ex.exercise)}</span><strong>Satz ${s+1}/${n}</strong></div><section class="cf206t-exhero"><div class="cf206t-label">${esc(cfFsdpExerciseRole(ex)==='isolation'?'Isolation':'Compound')}</div><h1>${esc(ex.exercise)}</h1><p>${esc(cfFsdpSetLabel(ex))} × ${esc(ex.repLabel)} · ${esc(guard.label)}</p><div class="cf206t-exhero-tools"><button onclick="startTimer(${cfFsdpRestSeconds(ex)})">Pausentimer</button><button onclick="cfFsdpOpenExerciseList('${programId}')">Übersicht</button></div></section><section class="cf-fsdp-setcard"><div class="cf-fsdp-settitle"><span>Aktueller Arbeitssatz</span><strong>${doneSets}/${n} erledigt</strong></div><div class="cf-fsdp-fields"><div class="cf-fsdp-field"><label>Gewicht kg</label><input id="cfFsdpWeight" inputmode="decimal" type="number" min="0" step="0.5" value="${pref.weight!==''?esc(pref.weight):''}" onchange="cfFsdpDraftField('${programId}','weight',this.value)"></div><div class="cf-fsdp-field"><label>Wdh.</label><input id="cfFsdpReps" inputmode="numeric" type="number" min="0" step="1" value="${pref.reps!==''?esc(pref.reps):''}" onchange="cfFsdpDraftField('${programId}','reps',this.value)"></div><div class="cf-fsdp-field"><label>RIR</label><button class="${pref.rir==null?'empty':''}" onclick="cfFsdpOpenRir('${programId}')">${pref.rir==null?'Wählen':esc(pref.rir)}</button></div></div><div class="cf-fsdp-target"><span>FSDP-Ziel</span><strong>${esc(action)}</strong></div><button class="cf-fsdp-quality ${issue?'issue':''}" onclick="cfFsdpToggleQuality('${programId}')">${issue?'⚠ Technik/ROM auffällig – Progression blockiert':'✓ Technik & ROM sauber'}</button><button class="cf206t-save-set" onclick="cfFsdpSaveSet('${programId}')">Satz speichern</button></section></div>`
+}
+function cfFsdpRenderProgram(programId){
+  contextTitle.textContent=cfFsdpCatalogEntry(programId)?.name||'Training';let f=state.fsdp?.finishSummary;if(f?.programId===programId)return cfFsdpFinishScreen(programId);let run=cfFsdpRun(programId);if(run?.workout?.status==='active')return cfFsdpGuidedScreen(programId);let mode=cfFsdpUiState().programMode||'workout';if(mode==='plan')return cfFsdpPlanScreen(programId);if(mode==='history')return cfFsdpHistoryScreen(programId);return cfFsdpProgramOverview(programId)
+}
+renderProgramView=function(){let id=cfFsdpUiState().openProgramId;if(cfFsdpIsProgram(id))return cfFsdpRenderProgram(id);return cfFsdpBlock5RenderProgramBase()};
+
+function cfFsdpHomeCard(programId){let def=cfFsdpCatalogEntry(programId),run=cfFsdpRun(programId),st=cfFsdpDayStats(programId,run),running=run.workout?.status==='active';return `<section class="cf206-card cf206-today"><div class="cf206-cardhead"><div class="cf206-cardlabel">Dein heutiges Training</div><div class="cf206-day">${esc(st.day?.label||st.dayKey)}</div></div><div class="cf206-today-title">${esc(def.name)}</div><div class="cf206-today-sub">${esc(cfFsdpProgramPhase(programId,run))} · First Set Double Progression</div><div class="cf206-today-meta"><span><strong>${cfFsdpEstimateLabel(programId)}</strong> Dauer</span><span><strong>${st.day?.exercises?.length||0}</strong> Übungen</span><span><strong>${st.done}/${st.total}</strong> Sätze</span></div><button class="cf206-primary" onclick="cfFsdpOpenProgram('${programId}')">${running?'Training fortsetzen':'Training starten'}</button></section>`}
+renderHome=function(){let html=cfFsdpBlock5RenderHomeBase(),id=cfFsdpCurrentProgramId();if(!id)return html;return html.replace(/<section class="cf206-card cf206-today">[\s\S]*?<\/section>/,cfFsdpHomeCard(id))};
+
+const cfFsdpCompletedDateBlock5Base=cfFsdpCompletedDate;
+cfFsdpCompletedDate=function(run,context){let hit=(run?.completed||[]).find(x=>x?.context===context||x?.key===context||(x?.sessionKey&&String(context).startsWith(x.sessionKey+'|')));return hit?.date||cfFsdpCompletedDateBlock5Base(run,context)};
+
+cfFsdpUiState();save();if(['home','training','program'].includes(state.activeView))render();
+/* ---------- /COALFORGED FSDP QUICK PLANS · BLOCK 5 ---------- */
 </script>
 </body></html>
