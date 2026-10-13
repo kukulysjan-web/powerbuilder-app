@@ -1,5 +1,5 @@
-/* COALFORGED 2.3.0 · scoped offline-first shell, network-first navigation */
-const CACHE='coalforged-v2.3.1';
+/* COALFORGED 2.3.2 · scoped offline-first shell, network-first navigation */
+const CACHE='coalforged-v2.3.2';
 const PERSISTENT_CACHES=['jan-training-bls-v4.0-2025'];
 const CORE=['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png','./coalforged-mark.svg','./cf-home-athlete.webp','./cf-home-plates.webp','./cf-forge-texture.webp','./cf-mountain.webp','./cf-training-athlete.webp','./cf-training-plates.webp','./cf-meal-dinner.webp','./cf-meal-lunch.webp','./cf-meal-breakfast.webp','./cf-nutrition-hero.webp','./cf-archetype-dense.webp','./cf-archetype-silver.webp','./cf-archetype-athlete.webp'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
