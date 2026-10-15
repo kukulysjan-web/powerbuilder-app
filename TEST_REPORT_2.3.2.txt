@@ -1,0 +1,27 @@
+COALFORGED 2.3.2 · Browser-Integration · 2026-10-13
+
+Laufzeit: Playwright / Chromium (in-memory DOM, simuliertes LocalStorage).
+Beobachtet: keine JS-Page-Errors im Testlauf.
+
+PASS  01 App starts without JavaScript errors
+PASS  02 APP_VERSION = 2.3.2
+PASS  03 Legacy structure receives additive default solo/bilateral + slot ID
+PASS  04 Group schedule for asymmetric 3/2/4 sets
+PASS  05 Mixed day: solo → group → solo
+PASS  06 Builder group + unilateral configuration survives structure serialization
+PASS  07 Builder renders group / unilateral controls
+PASS  08 Removing member dissolves invalid 1-member group
+PASS  09 Unilateral defaults to FIXED progression gate
+PASS  10 No auto side guess when history absent
+PASS  11 First side saves independently without completing work set
+PASS  12 Second side completes pair and navigates to next exercise
+PASS  13 Session cursor recovery uses next due group step
+PASS  14 Round Robin and 120s group round timer
+PASS  15 Explicit PARTIAL never counts as completed set
+PASS  16 JSON serialization keeps plan groups/laterality + side logs
+PASS  17 PARTIAL excluded from completed set count, scheduler marks resolved
+PASS  18 No JS runtime errors observed after interactions
+
+Static syntax: All 38 inline app scripts checked with Node --check.
+Not tested: real network/PWA installation, real-device UX, import-backup migration, accessibility audits, comprehensive regression suite.
+GitHub deployment: blocked by remote API 403 Resource not accessible by integration.

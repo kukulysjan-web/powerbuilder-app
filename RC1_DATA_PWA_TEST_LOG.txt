@@ -1,0 +1,22 @@
+PASS Import: ungültige Eingabe abweisen
+PASS Import: leere Objekte abweisen
+PASS Import: künftiges Schema v11 abweisen
+PASS Import: aktives Schema v10 akzeptieren
+PASS Import: Legacy-runs akzeptieren
+PASS Import: verschachteltes staatliches Backup akzeptieren
+PASS Import: vollständiges Altbackup vor Überschreiben sichern
+PASS Import: Abbruch falls Sicherheitskopie nicht möglich
+PASS Import: Rollback falls Migration scheitert
+PASS Import: Rollback falls Speichern scheitert
+PASS App: Speicher-Key und Schema bleiben v10
+PASS App: Versionskennung steht auf RC1
+PASS App: Generator-/KI-Aufrufe bleiben entfernt
+PASS PWA: install registriert
+PASS PWA: Cachekennung RC1
+PASS PWA: Installations-Cache enthält Offline-Kern
+PASS PWA: Cache-Wechsel löscht alte coalforged-Versionen, bewahrt Fremd-Cache
+PASS PWA: Navigation online bevorzugt Netzwerk
+PASS PWA: Offline-Navigation liefert lokalen Fallback
+PASS PWA: kein Intercept für POST und fremde Domain
+
+20 passed, 0 failed

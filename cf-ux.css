@@ -1,0 +1,93 @@
+/* COALFORGED · UX Rebuild v2.4.0-RC1. Scope: mobile-first UI only. */
+.cfux-workout,.cfux-phys,.cfux-home{max-width:840px;margin:0 auto;padding:2px 0 24px;color:var(--text)}
+.cfux-workout h1,.cfux-phys h1,.cfux-home h1{font-size:clamp(24px,5vw,34px);letter-spacing:-.04em;line-height:1.08;margin:5px 0 8px}
+.cfux-kicker{font-size:10px;font-weight:850;letter-spacing:.13em;color:var(--accent);text-transform:uppercase}
+.cfux-flex{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cfux-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0 0 14px}
+.cfux-top p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+.cfux-duration{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:13px;font-weight:850;padding:8px 9px;border:1px solid var(--line);border-radius:10px;background:var(--card2)}
+.cfux-toolbar{display:flex;gap:8px;margin:0 0 14px}
+.cfux-toolbar button{flex:1;border-radius:11px;min-height:40px;font-weight:800}
+.cfux-paused{padding:13px;border:1px solid var(--warn);border-radius:13px;margin-bottom:14px;color:var(--warn);font-weight:700}
+.cfux-ex{padding:0;background:var(--card);border:1px solid var(--line);border-radius:19px;margin:12px 0 14px;overflow:hidden;box-shadow:var(--shadow)}
+.cfux-ex header{padding:14px 12px 12px;border-bottom:1px solid var(--line)}
+.cfux-exhead{width:100%}
+.cfux-pick{display:flex;align-items:center;justify-content:center;margin:0;flex-shrink:0}
+.cfux-pick input{width:17px;height:17px;accent-color:var(--accent)}
+.cfux-exname{flex:1;min-width:0}
+.cfux-exname h3{font-size:16px;line-height:1.25;font-weight:900;margin:0 0 4px;overflow-wrap:anywhere}
+.cfux-exname small{display:block;font-size:10px;color:var(--muted);line-height:1.35}
+.cfux-minibtn{min-width:36px;min-height:35px;padding:2px 8px;font-size:24px;font-weight:900;border:none;background:var(--card2)}
+.cfux-tablehead,.cfux-setrow{display:grid;grid-template-columns:31px minmax(0,1.05fr) minmax(0,.83fr) 54px 37px;gap:6px;align-items:center;padding:7px 11px}
+.cfux-tablehead{font-size:10px;letter-spacing:.03em;color:var(--muted);font-weight:800;background:var(--card2);text-align:center}
+.cfux-setrow{border-top:1px solid color-mix(in srgb,var(--line) 38%,transparent);min-height:54px}
+.cfux-setrow.cfux-done{background:color-mix(in srgb,var(--good) 7%,var(--card))}
+.cfux-setnum{text-align:center;font-variant-numeric:tabular-nums;font-size:12px;font-weight:800;color:var(--muted)}
+.cfux-setrow input{width:100%;min-width:0;min-height:37px;border:1px solid var(--line);background:var(--card2);padding:5px 3px;border-radius:8px;text-align:center;font-variant-numeric:tabular-nums;font-size:14px;font-weight:700;appearance:textfield}
+.cfux-setrow input::-webkit-inner-spin-button{appearance:none}
+.cfux-setrow input:focus{outline:2px solid var(--accent);outline-offset:0;background:var(--card)}
+.cfux-check{width:35px;height:36px;padding:0;border:1px solid var(--line);border-radius:9px;background:var(--card2);font-size:20px;color:var(--muted)}
+.cfux-check.yes{background:color-mix(in srgb,var(--good) 24%,var(--card2));border-color:var(--good);color:var(--good)}
+.cfux-sidepair{padding:5px 0;border-top:1px solid color-mix(in srgb,var(--line) 55%,transparent)}
+.cfux-sidepair .cfux-setrow{border:0;min-height:48px}
+.cfux-side-label{font-size:10px;font-weight:850;color:var(--accent);letter-spacing:.04em;margin:5px 12px 0}
+.cfux-exbottom{border-top:1px solid var(--line);display:flex;align-items:center;gap:6px;padding:9px 11px}
+.cfux-exbottom button{min-height:35px;font-size:12px;font-weight:800;padding:7px 12px}
+.cfux-exbottom button:first-child{margin-right:auto;flex:1;text-align:left;border:none;background:transparent;color:var(--accent);font-size:13px}
+.cfux-group{padding:11px 12px;margin:9px 0;background:color-mix(in srgb,var(--card) 86%,var(--accent) 14%);border:1px solid color-mix(in srgb,var(--line) 65%,var(--accent) 35%);border-radius:14px}
+.cfux-group strong{font-size:13px}.cfux-group button{padding:5px 7px;font-size:11px}
+.cfux-restinputs{margin-top:8px;gap:8px;flex-wrap:wrap}.cfux-restinputs label{flex:1;font-size:11px;color:var(--muted)}
+.cfux-restinputs input{display:inline-block;width:59px;text-align:center;min-height:34px;padding:3px}
+.cfux-floating{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}
+.cfux-floating button{min-height:44px;font-size:12px;flex:1 1 auto;font-weight:850}
+.cfux-floating button:first-child{flex-basis:100%;font-size:14px}
+.cfux-finish{width:100%;min-height:49px;margin:8px 0 20px;border-radius:13px;font-weight:850}
+.cfux-sheet{display:grid;gap:10px}.cfux-sheet h2{margin:0 0 4px;font-size:20px}.cfux-sheet>button{min-height:44px;text-align:left}
+.cfux-sheet>button.primary{text-align:center}.cfux-sheet label{font-size:13px;font-weight:750;display:grid;gap:7px}
+.cfux-sheet input{width:100%;min-height:43px;padding:9px}.cfux-sheet #cfux-suggestions{display:grid;gap:4px;max-height:40vh;overflow:auto}
+.cfux-sheet #cfux-suggestions button{text-align:left;padding:10px;background:var(--card2);border:1px solid var(--line)}
+.cfux-phys>.cfux-flex{align-items:start;margin:0 0 14px}.cfux-phys>.cfux-flex button{white-space:nowrap;font-size:12px;padding:10px}
+.cfux-weight{padding:15px 12px;border:1px solid var(--line);border-radius:19px;background:var(--card);box-shadow:var(--shadow)}
+.cfux-weight>small,.cfux-homehero small,.cfux-homegrid small{font-size:10px;color:var(--muted);font-weight:850;letter-spacing:.06em}
+.cfux-big{font-size:34px;font-weight:950;letter-spacing:-.035em;line-height:1.1;margin:6px 0}
+.cfux-weight>p{margin:0 0 18px;color:var(--muted);font-size:12px}
+.cfux-weight h2{font-size:14px;margin:0;font-weight:900}
+.cfux-period{display:flex;gap:3px;flex-wrap:wrap}.cfux-period button{font-size:10px;min-height:30px;padding:5px 7px;border:none;background:var(--card2)}
+.cfux-period button.sel{background:var(--accent);color:#1c1108;font-weight:900}
+.cfux-weight svg{width:100%;height:auto;min-height:165px;display:block;margin:8px 0 3px;overflow:visible}
+.cfux-weight svg circle{cursor:pointer;touch-action:manipulation}
+.cfux-legend{color:var(--accent);font-size:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px}.cfux-legend span{color:var(--muted)}
+.cfux-statgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.cfux-stat{padding:13px;background:var(--card);border:1px solid var(--line);border-radius:14px;min-width:0}
+.cfux-stat small{font-size:11px;color:var(--muted);display:block;margin-bottom:6px}.cfux-stat strong{font-size:18px;font-weight:900;overflow-wrap:anywhere}
+.cfux-details{border:1px solid var(--line);border-radius:14px;padding:12px;margin:11px 0;background:var(--card);overflow:hidden}
+.cfux-details>summary{font-size:13px;font-weight:800;cursor:pointer;min-height:25px}.cfux-details[open]>summary{padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.cfux-meas{margin:10px 0}.cfux-meas .cfux-flex{padding:7px 0;border-bottom:1px solid var(--line);font-size:12px}
+.cfux-meas button,.cfux-details>button{font-size:12px;min-height:36px;margin:4px}
+.cfux-empty{padding:55px 16px;text-align:center;color:var(--muted);font-size:13px}
+.cfux-homehero{padding:20px;background:linear-gradient(125deg,color-mix(in srgb,var(--card) 83%,var(--accent) 17%),var(--card));border:1px solid var(--line);border-radius:20px;margin:16px 0 12px}
+.cfux-homehero h2{font-size:23px;margin:8px 0 16px}.cfux-homehero button{width:100%;min-height:48px}
+.cfux-homegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cfux-homegrid button{background:var(--card);text-align:left;padding:16px 13px;border-radius:15px;display:flex;flex-direction:column;gap:8px}
+.cfux-homegrid button strong{font-size:19px;line-height:1.2}.cfux-homegrid button span{font-size:11px;color:var(--accent)}
+.cfux-homemore{display:flex;gap:8px;margin:12px 0}.cfux-homemore button{flex:1;min-height:42px;font-size:12px}
+.cfux-fast{border:1px solid var(--line);background:var(--card);padding:11px 12px;margin:7px 0 12px;border-radius:13px}
+.cfux-fast strong{font-size:13px;display:block;margin-bottom:8px}.cfux-fast>div{display:flex;gap:8px}.cfux-fast button{flex:1;min-height:42px;font-size:12px;font-weight:800}
+.cfux-morelinks{display:grid;gap:8px;margin:0 0 10px}.cfux-morelinks button{text-align:left;background:var(--card);min-height:48px;font-size:14px;font-weight:850}
+/* Keep the program's rule engine, but avoid exposing internal configuration labels as primary UX. */
+.cf224-plan-head .cf224-badges,.cf224-plan-head .versions,.cfux-workout .cf21-exhero,.cfux-workout .cf21-settop{display:none!important}
+@media(min-width:720px){.cfux-workout,.cfux-phys,.cfux-home{padding:12px 16px}.cfux-ex header{padding:16px}.cfux-setrow,.cfux-tablehead{padding-left:18px;padding-right:18px;grid-template-columns:45px minmax(0,1fr) minmax(0,1fr) 90px 52px}.cfux-setrow input{min-height:44px}.cfux-homegrid{gap:14px}}
+@media(max-width:360px){.cfux-setrow,.cfux-tablehead{grid-template-columns:27px minmax(0,1fr) minmax(0,.8fr) 46px 33px;gap:4px;padding-left:7px;padding-right:7px}.cfux-check{width:31px}.cfux-top h1{font-size:24px}}
+.cfux-simplebuilder h1{font-size:24px}.cfux-builderplanname{display:grid;gap:6px;margin:12px 0;font-size:11px;font-weight:800;color:var(--muted)}
+.cfux-builderplanname input{min-height:45px;font-size:17px;font-weight:800;padding:9px 12px}
+.cfux-simpleday{padding:11px 12px}.cfux-simpledayhead{display:flex;align-items:center;gap:8px;margin:4px 0 13px}.cfux-simpledayhead>span{font-size:10px;color:var(--accent);font-weight:800;white-space:nowrap}
+.cfux-simpledayhead input{min-width:0;width:100%;min-height:40px;padding:8px;font-weight:900}
+.cfux-simpledayhead button{color:var(--danger);min-width:36px}.cfux-builderex{padding:12px 0;border-top:1px solid var(--line)}
+.cfux-buildername{background:transparent;border:0;padding:0;color:var(--text);font-weight:900;font-size:14px;text-align:left}
+.cfux-buildername small{display:inline-block;color:var(--accent);font-size:10px;margin-left:4px}
+.cfux-builderex .cfux-flex>div{display:flex;gap:2px}.cfux-builderex .cfux-flex>div button{min-width:32px;min-height:34px;padding:3px}
+.cfux-builderfields{display:grid;grid-template-columns:.8fr 1.2fr .7fr 1fr;gap:6px;margin:11px 0}
+.cfux-builderfields label{min-width:0;font-size:10px;color:var(--muted);font-weight:750}.cfux-builderfields input{display:block;width:100%;min-width:0;min-height:38px;text-align:center;padding:6px 2px;font-size:12px;margin-top:5px}
+.cfux-builderuni{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);margin:6px 0}.cfux-builderuni input{accent-color:var(--accent)}
+.cfux-builderadd{width:100%;min-height:43px;text-align:center;margin:5px 0 10px;color:var(--accent);font-weight:850}
+.cfux-builderactions{display:grid;gap:8px;margin:18px 0}.cfux-builderactions button{min-height:44px}.cfux-advancedbuilder{font-size:12px}

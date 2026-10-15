@@ -1,0 +1,11 @@
+PASS 39 embedded JavaScript blocks parse
+PASS local image references resolve
+PASS PWA manifest and icon dimensions
+PASS service-worker core assets exist
+PASS responsive styles and viewport present (static)
+PASS no external JavaScript runtime dependency
+PASS storage and import safety functions remain
+PASS Workout/Physique/Nutrition/plan modules remain
+PASS underlying Block 5 code/assets unchanged except release version
+
+9/9 static checks passed

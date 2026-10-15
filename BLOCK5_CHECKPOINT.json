@@ -1,0 +1,25 @@
+{
+  "version": "2.3.3-b5",
+  "base": "2.3.3-b4",
+  "date": "2026-10-14",
+  "unit_integration_tests": {
+    "passed": 28,
+    "failed": 0
+  },
+  "embedded_js_syntax": {
+    "passed": 39,
+    "failed": 0
+  },
+  "browser_e2e": "blocked_by_administrator",
+  "android_pwa": "not_run",
+  "storage_key": "janTrainingUnifiedV1",
+  "schema_changes": false,
+  "live_updated": false,
+  "block6_started": false,
+  "source_files_changed": [
+    "UPLOAD_ANLEITUNG.md",
+    "index.html",
+    "sw.js"
+  ],
+  "source_files_unchanged": 38
+}

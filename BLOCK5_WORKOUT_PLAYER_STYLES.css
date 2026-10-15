@@ -1,0 +1,7 @@
+/* COALFORGED 2.3.3 Block 5 status bar; inherits the Heritage Forge palette. */
+.cf233-b5-journey{margin:10px 0;padding:10px 13px;border:1px solid #544335;border-radius:10px;background:#201b19;display:grid;gap:5px}
+.cf233-b5-journey strong{font-size:12px;color:#edbb8d}
+.cf233-b5-journey span{font-size:11px;color:#c3b5a9;line-height:1.4}
+.cf233-b5-historybar{margin:10px 0;display:flex}.cf233-b5-historybar button{padding:9px 13px;border:1px solid #574333;border-radius:9px;background:#211b19;color:#e8bb93;font-weight:700}
+.cf233-b5-hint{font-size:12px;color:#bfb1a3;margin:10px 0 14px}.cf233-b5-history-item{border:1px solid #594739;padding:10px;margin:8px 0;border-radius:9px;background:#211b18}
+.cf233-b5-history-item summary{cursor:pointer;color:#ecc2a5;font-size:12px;font-weight:700}.cf233-b5-history-ex{margin:9px 0}.cf233-b5-history-ex strong{font-size:11px}.cf233-b5-history-ex ul{margin:5px 0;padding-left:20px;line-height:1.6;font-size:11px}

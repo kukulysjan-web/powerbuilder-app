@@ -1,0 +1,30 @@
+PASS Trisatz and uneven sets: A1 → A2 → A3 → A1 → A2 → solo ×2
+PASS 4-exercise giant set / full-day circuit sequence
+PASS effective model set counts override raw prescription
+PASS rest between exercises 0 s and after group round 120 s
+PASS bilateral set persists and automatically jumps to A2
+PASS bilateral between-exercise rest has no phantom timer
+PASS unilateral LEFT saves as incomplete, navigates to RIGHT without changing exercise
+PASS partial unilateral set survives serialized session reload
+PASS right-side input starts separately (no leaked left-side RIR)
+PASS unilateral RIGHT completes one work set then jumps to A3
+PASS finishing A3 starts exactly one 120-second round timer
+PASS rest countdown remains persisted after 10 seconds and hydration/reload
+PASS workout pause freezes timer and resume restores remaining duration
+PASS user timer adjustment syncs deadline to persisted workout
+PASS user can skip rest timer without losing workout
+PASS second round bilateral / unilateral do not repeat A3
+PASS solo non-group pause is 90 seconds and no duplicate timer
+PASS finishing final solo set closes without another timer
+PASS all complete while individual side history is intact
+PASS full workout player exposes next-step status and timer action
+PASS explicit unilateral partial resolves navigation without counting complete
+PASS unilateral progression records all sets per side separately
+PASS manual workout timer works even when automatic rest is disabled
+PASS manually paused timer remains paused through workout pause and resume
+PASS plan screen shows workout history access
+PASS engine finalizer archives both sides and all group sets in versioned workout history
+PASS historical workout UI distinguishes LEFT/RIGHT and displays actual values
+PASS legacy protected programs do not enter Block 5 engine
+
+28 passed, 0 failed
