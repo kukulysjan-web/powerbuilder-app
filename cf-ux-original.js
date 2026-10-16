@@ -69,7 +69,7 @@
   cf21GuidedScreen=function(){return supported()?screen():baseScreen()};
   window.cfuxoEdit=function(r,si,field,v){if(!supported()||!['weight','reps','rir'].includes(field))return;const n=v===''?null:Number(v),max=field==='rir'&&String(session().programKey).startsWith('fsdp:')?6:4;
    if(n!==null&&(!Number.isFinite(n)||n<0||(field==='reps'&&!Number.isInteger(n))||(field==='rir'&&(!Number.isInteger(n)||n>max))))return toastMsg('Ungültiger Wert');
-   const z=record(r,si,true);if(!z)return;z[field]=n===null?'':n;if(z.ok && r[0]==='p' && session().programKey==='kilo')try{kInvalidateProgress(kRun().day,exFor(r).sourceIndex)}catch(_){/* keep row correction */}save();
+   const z=record(r,si,true);if(!z)return;z[field]=n===null?'':n;if(z.ok && r[0]==='p' && session().programKey==='kilo')try{const day=kRun().day,idx=exFor(r).sourceIndex;kInvalidateProgress(day,idx);kEvaluateProgress(day,idx)}catch(_){/* keep row correction */}save();
   };
   function validated(r,si){const key=r+'_'+si,existing=data(r,si),out={};for(const f of ['weight','reps','rir']){const el=document.getElementById(`cfuxo-${key}-${f}`),v=el?el.value:val(existing,f);out[f]=v===''?NaN:Number(v)}return Number.isFinite(out.weight)&&out.weight>=0&&Number.isInteger(out.reps)&&out.reps>0&&Number.isInteger(out.rir)&&out.rir>=0&&out.rir<=(String(session().programKey).startsWith('fsdp:')?6:4)?out:null}
   function nativeComplete(r,si,v){const k=session().programKey,x=exFor(r),i=x.sourceIndex;
@@ -131,15 +131,43 @@
   cf21Finish=function(){if(!supported())return nativeFinish();const key=session().programKey,ctx=context(),pending=schedule().filter(t=>!record(t.r,t.si)?.ok),nativeReady=model()?.exercises.every(x=>x.done>=x.sets);
    if(!nativeReady)return toastMsg('Original-Programmsätze fehlen noch.');
    if(pending.length&&!confirm(`${pending.length} Zusatz-/Gruppensätze sind noch offen. Workout trotzdem abschließen?`))return;
-   const snap=JSON.parse(JSON.stringify({extras:ctx.extras,addedSets:ctx.addedSets,groups:ctx.groups,recordedAt:new Date().toISOString()}));
+   const changed=ctx.extras.length>0||Object.values(ctx.addedSets).some(a=>a.length>0)||ctx.groups.length>0;
+   const snap=JSON.parse(JSON.stringify({extras:ctx.extras,addedSets:ctx.addedSets,groups:ctx.groups,recordedAt:new Date().toISOString(),changed}));
+   // Build a standalone, manual-plan proposal without modifying native program prescriptions.
+   let proposedDay=null;
+   if(changed){const m=model(),refs=[...(m.exercises||[]).map((_,i)=>'p'+i),...ctx.extras.map(e=>'e'+e.id)],slots={};
+    const exs=refs.map((r,i)=>{const x=exFor(r,m,ctx),slot='uxcopy_'+uid();slots[r]=slot;const original=r[0]==='p';return {slot_id:slot,exercise_id:String(x.exercise_id||'uxcopy_'+uid()),name:x.name,role:x.role||'Übung',order:i+1,sets:original?Math.max(1,x.sets+(ctx.addedSets[r]?.length||0)):Math.max(1,x.sets||1),reps:String(x.reps||'8–12'),rir:'2',rest:String(x.rest||'90'),laterality:null}});
+    const groups=ctx.groups.map(g=>({groupId:'uxcopy_'+uid(),kind:g.members.length===2?'SUPERSET':g.members.length===3?'TRISET':g.members.length===refs.length?'CIRCUIT':'GIANT_SET',prescriptionIds:g.members.map(r=>slots[r]).filter(Boolean),restBetweenExercisesSec:g.between,restAfterRoundSec:g.after})).filter(g=>g.prescriptionIds.length>=2);
+    proposedDay={day_id:'D1',name:m.dayLabel||'Training',exercises:exs,exerciseGroups:groups};
+   }
    const run=cf21RunFor(key),oldCount=run?.completed?.length||0;
    const ret=nativeFinish();
-   if(!cf21SessionLive()&&state.cf21Finish?.programKey===key){state.cf21Finish.uxSupplemental=snap;
+   if(!cf21SessionLive()&&state.cf21Finish?.programKey===key){state.cf21Finish.uxSupplemental=snap;state.cf21Finish.uxPlanProposal=proposedDay;
     if(run?.completed?.length>oldCount)run.completed.at(-1).uxSupplemental=snap;
     save();refresh();}
    return ret;
   };
   const nativeReset=cf21ResetLogs;
   cf21ResetLogs=function(){if(supported()){session().cfuxOriginal=null;save()}return nativeReset()};
+  // Default is always session-only. A copy of an original program is explicitly opt-in.
+  window.cfuxoKeepSessionOnly=function(){if(state.cf21Finish)state.cf21Finish.uxPlanDecision='SESSION_ONLY';state.cf21Finish=null;save();setView('training')};
+  window.cfuxoCopyPlan=function(){
+   const f=state.cf21Finish,day=f?.uxPlanProposal;
+   if(!f?.uxSupplemental?.changed||!day)return toastMsg('Kein geänderter Ablauf vorhanden.');
+   if(cf21SessionLive())return toastMsg('Workout zuerst beenden.');
+   if(!confirm('Den geänderten Ablauf als NEUEN eigenen Trainingsplan speichern? Das Originalprogramm und dessen Progression bleiben unverändert.'))return;
+   const structure=cf221SanitizeStructure({cycleLabel:'Eigene Variante',days:[day]});
+   const issues=cf224StructureIssues(structure);if(issues.length)return toastMsg('Plan kann nicht erstellt werden: '+issues[0]);
+   const setup={structure,config:cf224SetupConfig(structure),sourceType:'CUSTOM',sourceId:'ux-session-'+uid(),sourceName:'Workout-Kopie',sourceLibraryId:'',parentVersion:null};
+   const now=new Date().toISOString(),id='cfe_'+uid(),v=cf224BuildVersion(setup,1,null);
+   const p={plan_id:id,name:String(f.title||f.dayLabel||'Training')+' · Eigene Variante',description:'Aus einem abgeschlossenen Workout übernommen. Originalprogramm bleibt unverändert.',sourceType:'CUSTOM',sourceId:setup.sourceId,sourceName:'Workout-Kopie',sourceLibraryId:'',sourceRef:'snapshot:'+uid(),logicOwner:'COALFORGED',status:'draft',activeVersion:1,versions:[v],runtime:{dayIndex:0,workout:null},history:[],progression:{'1':{}},createdAt:now,updatedAt:now};
+   cf224Plans().push(p);cf224Store().ui.viewKey=cf224Key(id);state.cf21Finish=null;save();setView('training');toastMsg('Eigener Trainingsplan gespeichert ✓');
+  };
+  const cfuxoBaseFinishScreen=cf21FinishScreen;
+  cf21FinishScreen=function(){const html=cfuxoBaseFinishScreen(),f=state.cf21Finish;
+   if(!f?.uxSupplemental?.changed||!f.uxPlanProposal||cf224IsEngineKey(f.programKey))return html;
+   const prompt=`<section class="cfux-finishplan" aria-labelledby="cfuxo-finish-question"><strong id="cfuxo-finish-question">Änderungen für zukünftige Workouts sichern?</strong><p>Dein Training ist gespeichert. Das Originalprogramm und seine Progression dürfen nicht überschrieben werden; du kannst stattdessen einen eigenen Plan aus diesem Ablauf erstellen.</p><button type="button" class="primary" onclick="cfuxoKeepSessionOnly()">Nur für dieses Workout <span aria-hidden="true">✓</span></button><button type="button" onclick="cfuxoCopyPlan()">Als eigenen Trainingsplan speichern</button></section>`;
+   return html.replace(/<button class="cf206t-primary" onclick="state\.cf21Finish=null;save\(\);setView\('training'\)">Zur Trainingsübersicht<\/button>/,prompt);
+  };
   window.CFUX_ORIGINAL_BRIDGE=Object.freeze({version:'2.4.0-UX-RC2',programs:['kilo','power','revenge','bennett','fsdp:*'],nativeProgressionPreserved:true,additionalExerciseTracking:true,canonicalExerciseSwap:false});
 })();

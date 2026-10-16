@@ -15,6 +15,7 @@
    w.uxDay=cf224Clone(original);
    w.uxDay.exercises.forEach((e,i)=>{e.sets=sourceExercises?.[i]?.sets??e.sets;e._uxRxKey=cf224PrescriptionKey(original,e,i);e._uxConfig=cf224Clone(cf224ConfigFor(v,original,e,i));});
    w.uxRemoved=[];
+   w.uxBaseline=cf224Clone(w.uxDay);
    save();
   }
   return w.uxDay;
@@ -38,6 +39,8 @@
  function uxModel(){const s=cfuxSession();return s?cf224Model(s.programKey):null}
  function active(){let s=cfuxSession();if(!s)return null;let m=uxModel();return m?{s,m,w:m.plan.runtime.workout,d:m.day}:null}
  function store(){save()}
+ // A layout signature intentionally excludes the logged kg/reps/RIR: those belong to history, never to the plan.
+ function layoutSignature(day){if(!day)return "";const slim={exercises:(day.exercises||[]).map(e=>({slot:e.slot_id,name:e.name,exercise:e.exercise_id,sets:+e.sets||0,reps:String(e.reps||""),rir:String(e.rir||""),rest:String(e.rest||""),laterality:e.laterality||null})),groups:(day.exerciseGroups||[]).map(g=>({kind:g.kind,members:g.prescriptionIds,between:+g.restBetweenExercisesSec||0,after:+g.restAfterRoundSec||0}))};return JSON.stringify(slim)}
  function rowRec(m,x,si,side){let L=cf224WorkoutLog(m.plan,x.prescriptionKey);let z=L.sets[si]||(L.sets[si]={ok:false});if(side){z.sides=z.sides||{};z.sides[side]=z.sides[side]||{status:'PENDING'};return z.sides[side]}return z}
  function values(m,x,si,side){
   const log=cf224WorkoutLog(m.plan,x.prescriptionKey,false),z=log?.sets?.[si];let a=side?z?.sides?.[side]:z;
@@ -114,7 +117,7 @@
  window.cfuxRemoveExercise=function(pos){let o=active(),x=o?.m.exercises[pos];if(!x||o.d.exercises.length<=1)return toastMsg('Mindestens eine Übung erforderlich.');if(!confirm('Übung aus dieser Einheit entfernen? Bereits gespeicherte Sätze bleiben im Session-Archiv.'))return;const e=o.d.exercises.splice(pos,1)[0];o.w.uxRemoved.push(cf224Clone(e));o.d.exerciseGroups=(o.d.exerciseGroups||[]).map(g=>({...g,prescriptionIds:g.prescriptionIds.filter(id=>id!==e.slot_id)})).filter(g=>g.prescriptionIds.length>=2);selected.delete(e.slot_id);store();render()};
  // Explicitly retain snapshot for rich history — without modifying canonical plan version.
  const cfuxFinishBase=cf224FinishEngineWorkout;
- cf224FinishEngineWorkout=function(){let o=active(),p=o?.m.plan,w=o?.w,snapshot=w?.uxDay?cf224Clone(w.uxDay):null,removed=w?.uxRemoved?cf224Clone(w.uxRemoved):[],key=w?.sessionKey;const n=p?.history?.length||0;const result=cfuxFinishBase();if(!cf21SessionLive())hideTimer();if(snapshot&&p?.history?.length>n){const entry=p.history.at(-1);if(entry?.sessionKey===key){entry.uxDay=snapshot;entry.uxRemoved=removed;save()}}return result};
+ cf224FinishEngineWorkout=function(){let o=active(),p=o?.m.plan,w=o?.w,snapshot=w?.uxDay?cf224Clone(w.uxDay):null,removed=w?.uxRemoved?cf224Clone(w.uxRemoved):[],key=w?.sessionKey;const n=p?.history?.length||0;const baseline=w?.uxBaseline||cf224ActiveVersion(p)?.structure?.days?.find(d=>d.day_id===snapshot?.day_id);const modified=!!snapshot && layoutSignature(snapshot)!==layoutSignature(baseline);const result=cfuxFinishBase();if(!cf21SessionLive())hideTimer();if(snapshot&&p?.history?.length>n){const entry=p.history.at(-1);if(entry?.sessionKey===key){entry.uxDay=snapshot;entry.uxRemoved=removed;entry.uxModified=modified;save();render()}}return result};
  // Physique · fast input, original measurements, 7-day trend (never fabricated interpolation).
  let range='4W';
  function weightPts(){const byDay=new Map();cf23Measurements().slice().sort((a,b)=>String(a.updatedAt).localeCompare(String(b.updatedAt))).forEach(m=>{if(Number(m.bodyWeightKg)>0)byDay.set(m.date,{date:m.date,w:Number(m.bodyWeightKg),id:m.id})});const arr=[...byDay.values()].sort((a,b)=>a.date.localeCompare(b.date));const days=range==='4W'?28:range==='3M'?90:range==='6M'?183:Infinity,cut=Date.now()-days*864e5;const show=arr.filter(p=>days===Infinity||new Date(p.date+'T12:00:00').getTime()>=cut);return show.map(p=>{const ts=new Date(p.date+'T12:00:00').getTime(),prior=arr.filter(x=>{let d=ts-new Date(x.date+'T12:00:00').getTime();return d>=0&&d<7*864e5});return {...p,trend:prior.reduce((s,x)=>s+x.w,0)/prior.length,samples:prior.length}})}
@@ -163,11 +166,16 @@
  // Existing sessions and their original prescriptions remain immutable. Adopting a
  // completed session's layout always creates a NEW plan version after confirmation.
  function uxLatestHistory(){let p=cf224PlanById(state.cf21Finish?.programKey?.replace(/^engine:/,''));if(!p)return null;let h=p.history?.at(-1);return h?.uxDay?{p,h}:null}
+ window.cfuxKeepSessionOnly=function(){
+  // Results are already committed; only decline changing the template.
+  if(state.cf21Finish)state.cf21Finish.uxPlanDecision='SESSION_ONLY';
+  state.cf21Finish=null;save();setView('training');
+ };
  window.cfuxAdoptLastSession=function(){
-  let obj=uxLatestHistory();if(!obj)return toastMsg('Kein bearbeiteter Workout-Abschluss gefunden.');
+  let obj=uxLatestHistory();if(!obj||!obj.h.uxModified)return toastMsg('Keine Planänderung zu übernehmen.');
   const {p,h}=obj;
   if(cf21SessionLive())return toastMsg('Zuerst laufendes Workout abschließen.');
-  if(!confirm('Änderungen aus der letzten Trainingseinheit als NEUE Planversion übernehmen? Alle bisherigen Versionen und Workouts bleiben erhalten.'))return;
+  if(!confirm('Geänderten Trainingsablauf für zukünftige Einheiten als NEUE Planversion speichern? Dein ursprünglicher Plan und alle historischen Einheiten bleiben erhalten.'))return;
   let prior=cf224ActiveVersion(p),target=cf224Clone(prior),ix=target.structure.days.findIndex(d=>d.day_id===h.day_id);if(ix<0)return toastMsg('Trainingstag in Vorlage nicht gefunden.');
   const clean=cf224Clone(h.uxDay);
   const groupIds=new Set(clean.exercises.map(x=>x.slot_id));
@@ -179,13 +187,18 @@
    configs[dest]={...(e._uxConfig||prior.progressionConfig?.[old]||prior.progressionConfig?.[dest]||cf224DefaultConfig(d,e,i)),key:dest};
    delete e._uxRxKey;delete e._uxConfig;
   }
+  // Validate before changing any plan data; malformed edits must never corrupt a version.
+  const issues=cf224StructureIssues(cf221SanitizeStructure(target.structure));
+  if(issues.length)return toastMsg('Planübernahme nicht möglich: '+issues[0]);
   const n=Math.max(0,...p.versions.map(v=>+v.version||0))+1;
   target.version=n;target.createdAt=new Date().toISOString();target.parentVersion=prior.version;target.progressionConfig=configs;
-  p.versions.push(target);p.activeVersion=n;p.progression[String(n)]={};p.updatedAt=new Date().toISOString();save();render();toastMsg('Neue Planversion '+n+' gespeichert ✓');
+  p.versions.push(target);p.activeVersion=n;p.progression[String(n)]={};p.updatedAt=new Date().toISOString();
+  h.uxPlanDecision='ADOPTED';state.cf21Finish=null;save();setView('training');toastMsg('Neue Planversion '+n+' gespeichert ✓');
  };
  const uxFinishScreenBase=cf224VersionFinishScreen;
- cf224VersionFinishScreen=function(f){let html=uxFinishScreenBase(f),obj=uxLatestHistory();if(!obj||obj.p.plan_id!==f.programKey?.replace(/^engine:/,''))return html;
-  return html.replace('</div></div>',`</div><div class="cfux-finishplan"><p>Du hast den Trainingsablauf angepasst. Dein bisheriger Plan bleibt unverändert.</p><button onclick="cfuxAdoptLastSession()">Änderungen als neue Planversion übernehmen</button></div></div>`);
+ cf224VersionFinishScreen=function(f){let html=uxFinishScreenBase(f),obj=uxLatestHistory();if(!obj||!obj.h.uxModified||obj.p.plan_id!==f.programKey?.replace(/^engine:/,''))return html;
+  const prompt=`<section class="cfux-finishplan" aria-labelledby="cfux-finish-question"><strong id="cfux-finish-question">Änderungen am Trainingsplan speichern?</strong><p>Der Trainingsabschluss und deine Satzwerte sind bereits gespeichert. Ohne Bestätigung bleibt die bisherige Planvorlage unverändert.</p><button type="button" class="primary" onclick="cfuxKeepSessionOnly()">Nur für dieses Workout <span aria-hidden="true">✓</span></button><button type="button" onclick="cfuxAdoptLastSession()">Änderungen in Trainingsplan übernehmen</button></section>`;
+  return html.replace(/<button class="cf206t-primary" onclick="state\.cf21Finish=null;save\(\);setView\('training'\)">Zur Trainingsübersicht<\/button>/,prompt);
  };
  // Show additions/exchanges in the session snapshot rather than reconstructing
  // the history solely from the original, unchanged plan template.
