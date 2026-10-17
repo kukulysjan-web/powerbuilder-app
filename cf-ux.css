@@ -98,3 +98,127 @@
 .cfux-finishplan button{width:100%;min-height:48px;border-radius:12px;font-weight:850;font-size:13px;white-space:normal;padding:11px 12px}
 .cfux-finishplan button.primary{background:var(--accent);color:#111;border-color:var(--accent)}
 .cfux-finishplan button:not(.primary){background:transparent;border:1px solid var(--line);color:var(--text)}
+
+/* 2.4.0 UX Lab 4: accessible touch/mouse/stylus reordering – manual sessions only. */
+.cfux-draghandle{flex:none;display:flex;align-items:center;justify-content:center;width:39px;min-width:39px;height:44px;min-height:44px;padding:0;margin:-4px 0 -4px -6px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:27px;font-weight:800;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.cfux-draghandle:active{cursor:grabbing;color:var(--accent);background:var(--card2)}
+.cfux-draghandle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cfux-ex.cfux-dragging{opacity:.4;border-style:dashed;border-color:var(--accent)}
+.cfux-ex.cfux-drop-before{box-shadow:inset 0 5px var(--accent),var(--shadow)}
+.cfux-ex.cfux-drop-after{box-shadow:inset 0 -5px var(--accent),var(--shadow)}
+.cfux-drag-preview{position:fixed;z-index:200;pointer-events:none;max-width:min(290px,calc(100vw - 16px));padding:14px 17px;border:2px solid var(--accent);border-radius:12px;background:var(--card);color:var(--text);box-shadow:0 12px 28px #0007;font-weight:850;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.96}
+@media(max-width:360px){.cfux-ex header{padding-left:9px;padding-right:9px}.cfux-exhead{gap:6px}.cfux-draghandle{width:34px;min-width:34px;margin-left:-5px}}
+
+/* UX Lab 5: set-row swipe-to-reveal, manual plans only. */
+.cfux-swipe{position:relative;overflow:hidden;border-top:1px solid color-mix(in srgb,var(--line) 42%,transparent);touch-action:pan-y}
+.cfux-swipe-content{position:relative;z-index:1;min-width:0;background:var(--card);transform:translate3d(0,0,0);transition:transform .17s ease;touch-action:pan-y}
+.cfux-swipe .cfux-setrow{border-top:0}
+.cfux-swipe.cfux-sidepair{padding:0}
+.cfux-swipe.cfux-sidepair .cfux-swipe-content{padding:5px 0}
+.cfux-swipe.cfux-sidepair .cfux-setrow{border:0}
+.cfux-swipe-open>.cfux-swipe-content{transform:translate3d(-102px,0,0)}
+.cfux-swipe.cfux-swiping>.cfux-swipe-content{transition:none}
+.cfux-swipe-delete{position:absolute;right:0;top:0;bottom:0;z-index:0;width:102px;display:flex;align-items:center;justify-content:center;padding:6px 9px;border:0;border-radius:0;background:var(--danger);color:#fff;font-size:13px;font-weight:850;cursor:pointer}
+.cfux-swipe-delete:focus-visible{outline:3px solid var(--accent);outline-offset:-3px;z-index:2}
+.cfux-swipe-hint{font-size:11px!important;color:var(--accent)!important;padding-top:3px}
+.cfux-undo{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px;margin:7px 0 10px;background:var(--card2);border:1px solid var(--line);border-radius:12px;font-size:13px;font-weight:750}
+.cfux-undo button{border:1px solid var(--accent);color:var(--accent);background:transparent;min-height:37px;padding:7px 12px;font-size:12px;font-weight:850}
+@media(prefers-reduced-motion:reduce){.cfux-swipe-content{transition:none}}
+
+/* UX Lab 6: deferred exercise, single-action toolbar undo */
+.cfux-deferred{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));opacity:.86}
+.cfux-deferred .cfux-exname small{color:var(--accent)}
+.cfux-exbottom button:disabled{opacity:.45;cursor:not-allowed}
+.cfux-undo{position:sticky;top:6px;z-index:7;box-shadow:var(--shadow)}
+.cfux-exbottom button{min-height:38px}
+
+/* UX restore: last performance and pinned notes stay readable without extra screens. */
+.cfux-prev,.cfux-exnote{display:flex;align-items:baseline;gap:7px;padding:7px 13px;color:var(--muted);font-size:11px;line-height:1.35;background:var(--card)}
+.cfux-prev{padding-bottom:4px}
+.cfux-prev span{font-size:10px;white-space:nowrap}
+.cfux-prev strong{color:var(--text);font-weight:800;font-variant-numeric:tabular-nums}
+.cfux-prev-empty{opacity:.65}
+.cfux-exnote{align-items:center;padding-top:4px;padding-bottom:9px;min-height:33px;overflow:hidden}
+.cfux-exnote span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cfux-exnote button{background:transparent;border:none;padding:1px 4px;min-width:27px;min-height:26px;color:var(--accent)}
+.cfux-warmbtn{white-space:nowrap;min-height:37px!important;padding:6px 9px!important}
+.cfux-toolhint{font-size:12px;color:var(--muted);margin:0 0 6px}
+.cfux-sheet textarea{width:100%;border-radius:10px;background:var(--card2);color:var(--text);padding:12px;border:1px solid var(--line);font-size:14px;resize:vertical}
+@media(max-width:380px){.cfux-exbottom{flex-wrap:wrap}.cfux-exbottom button{padding:7px 8px}.cfux-prev,.cfux-exnote{padding-left:9px;padding-right:9px}}
+
+/* COALFORGED Nutrition Diary — UX Lab 8 (presentation only) */
+.cfuxn-page{max-width:840px;margin:0 auto;padding:0 0 78px;color:var(--text)}
+.cfuxn-page button{font:inherit;cursor:pointer}
+.cfuxn-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:4px 0 16px}
+.cfuxn-top h1{font-size:clamp(28px,6vw,38px);font-weight:900;line-height:1.1;letter-spacing:-.045em;margin:5px 0 5px}
+.cfuxn-top p{margin:0;color:var(--muted);font-size:12px;line-height:1.4}
+.cfuxn-topbutton{background:var(--card2);border:1px solid var(--line);width:42px;height:42px;border-radius:13px;font-size:22px;flex-shrink:0}
+.cfuxn-datebar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 8px;margin-bottom:12px}
+.cfuxn-datebar>button{border:0;background:var(--card2);border-radius:10px;min-width:43px;height:41px;font-size:28px;line-height:1;color:var(--text)}
+.cfuxn-datebar label{flex:1;display:flex;justify-content:center;align-items:center;position:relative;min-width:0;max-height:44px;text-align:center;cursor:pointer}
+.cfuxn-datebar label span{font-weight:850;font-size:13px;pointer-events:none}
+.cfuxn-datebar label input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.cfuxn-energy{border:1px solid var(--line);border-radius:20px;background:var(--card);padding:18px 16px 17px;box-shadow:var(--shadow)}
+.cfuxn-eyebrow{font-size:10px;color:var(--accent);font-weight:900;letter-spacing:.11em;margin-bottom:13px}
+.cfuxn-energytop{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.cfuxn-main strong{font-size:clamp(32px,8vw,45px);font-weight:900;line-height:1;letter-spacing:-.055em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cfuxn-main strong small{font-size:17px;font-weight:750;letter-spacing:-.025em}
+.cfuxn-main>span{display:block;color:var(--muted);font-size:12px;margin-top:8px}
+.cfuxn-remainder{text-align:right;padding:0 0 2px}
+.cfuxn-remainder strong{font-size:26px;font-weight:900;line-height:1.2;font-variant-numeric:tabular-nums;color:var(--good)}
+.cfuxn-remainder strong.over{color:var(--danger)}
+.cfuxn-remainder>span{display:block;color:var(--muted);font-size:11px}
+.cfuxn-caltrack{height:9px;border-radius:12px;background:var(--card3);overflow:hidden;margin-top:17px}
+.cfuxn-caltrack i{height:100%;background:var(--accent);border-radius:12px;display:block}
+.cfuxn-setgoal{display:block;width:100%;margin-top:13px;min-height:39px;font-size:12px!important;font-weight:850;border-radius:11px}
+.cfuxn-macros{display:grid;gap:13px;margin-top:20px}
+.cfuxn-macrohead{display:flex;align-items:baseline;justify-content:space-between;gap:9px;font-size:12px;margin-bottom:6px}
+.cfuxn-macrohead span{color:var(--muted);font-weight:650}
+.cfuxn-macrohead strong{font-size:12px;font-variant-numeric:tabular-nums;font-weight:850}
+.cfuxn-track{height:6px;background:var(--card3);border-radius:8px;overflow:hidden}
+.cfuxn-track i{height:100%;display:block;background:var(--accent);border-radius:8px}
+.cfuxn-primaryactions{display:grid;grid-template-columns:1.4fr 1fr;gap:9px;margin:12px 0 23px}
+.cfuxn-primaryactions button{min-height:49px;border-radius:12px;font-size:12px;font-weight:900;padding:10px 9px}
+.cfuxn-mainadd{border-color:var(--accent)!important;background:var(--accent)!important;color:white!important}
+.cfuxn-secondaryadd{border:1px solid var(--line);background:var(--card);color:var(--text)}
+.cfuxn-sectionhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 1px 12px}
+.cfuxn-sectionhead h2{margin:0;font-size:17px;line-height:1.25;letter-spacing:-.025em;font-weight:900}
+.cfuxn-sectionhead>span{font-size:11px;color:var(--muted);white-space:nowrap}
+.cfuxn-meals{display:grid;gap:10px}
+.cfuxn-meal{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+.cfuxn-mealhead{padding:12px 10px 12px 12px;display:flex;align-items:center;gap:9px;min-height:70px}
+.cfuxn-mealtitle{flex:1;min-width:0;text-align:left;display:flex;align-items:center;gap:10px;background:none!important;border:0!important;padding:0!important;color:var(--text)!important}
+.cfuxn-mealtitle>span:last-child{min-width:0}
+.cfuxn-mealicon{height:42px;width:42px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:12px;background:var(--card2);font-size:23px;color:var(--accent)}
+.cfuxn-mealtitle strong{display:block;font-size:14px;line-height:1.2;font-weight:900}
+.cfuxn-mealtitle small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted);font-size:10px;margin-top:4px}
+.cfuxn-mealkcal{font-size:12px;white-space:nowrap;font-weight:850;font-variant-numeric:tabular-nums}
+.cfuxn-plus{height:37px;width:37px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:26px!important;line-height:1!important;color:var(--accent)!important;background:var(--card2)!important;border:1px solid var(--line)!important;border-radius:11px!important;padding:0!important}
+.cfuxn-food{width:100%;min-height:57px;padding:11px 15px;border:0!important;border-top:1px solid var(--line)!important;background:transparent!important;color:var(--text)!important;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:0!important}
+.cfuxn-food>span:first-child{flex:1;min-width:0}
+.cfuxn-food strong{display:block;font-weight:750;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cfuxn-food small{display:block;color:var(--muted);font-size:10px;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cfuxn-foodkcal{font-size:11px;font-weight:850;white-space:nowrap;flex-shrink:0}
+.cfuxn-foodkcal span{margin-left:5px;font-size:16px;color:var(--muted)}
+.cfuxn-repeat{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;border:0!important;border-top:1px dashed var(--line)!important;background:var(--card2)!important;border-radius:0!important;padding:11px 15px!important;font-size:11px!important;color:var(--accent)!important;font-weight:800!important;text-align:left}
+.cfuxn-repeat span{color:var(--muted);font-size:10px}
+.cfuxn-advanced{border:1px solid var(--line);border-radius:13px;padding:12px 15px;background:var(--card);margin-top:17px}
+.cfuxn-advanced summary{font-size:12px;font-weight:800;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+.cfuxn-advanced summary::-webkit-details-marker{display:none}
+.cfuxn-advanced summary span{font-size:17px}
+.cfuxn-advancedbuttons{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:15px 0}
+.cfuxn-advancedbuttons button{font-size:11px;font-weight:750;min-height:42px}
+.cfuxn-advanced p{font-size:11px;color:var(--muted);line-height:1.6}
+.cfuxn-summary-note .card{margin-bottom:14px}
+.cfuxn-reporthead{display:flex;align-items:center;gap:12px;margin:15px 0}
+.cfuxn-reporthead button{border:1px solid var(--line);border-radius:9px;background:var(--card);padding:9px 12px;font-size:12px}
+.cfuxn-reporthead h2{font-size:16px;font-weight:850;margin:0}
+.cfuxn-existingreport{margin-top:12px}
+@media (min-width:650px){.cfuxn-macros{grid-template-columns:repeat(3,1fr);gap:18px}.cfuxn-energy{padding:24px}.cfuxn-meals{grid-template-columns:1fr 1fr}.cfuxn-primaryactions{grid-template-columns:2fr 1fr}}
+
+.cfuxn-top{position:static;z-index:auto;background:transparent;border:0;backdrop-filter:none;}
+
+/* Physique as a fifth main tab; preserve thumb-friendly mobile navigation. */
+.v2-bottomnav{grid-template-columns:repeat(5,minmax(0,1fr))}
+.v2-bottomnav>button{min-width:0;font-size:10px}
+.v2-bottomnav>button>span:last-child{white-space:nowrap}
