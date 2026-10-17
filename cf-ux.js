@@ -47,11 +47,14 @@
   h.push({label,day:cf224Clone(o.w.uxDay),logs:cf224Clone(o.w.logs||{}),removed:cf224Clone(o.w.uxRemoved||[]),deferred:cf224Clone(o.w.uxDeferredSlots||[]),focus:{slot:o.d.exercises[o.s.position]?.slot_id,set:o.s.setIndex,side:o.s.cf232Side}});
   o.w.uxUndoHistory=h.slice(-5);
   deleteUndo=null;
+  delete o.w.uxLastDeleteUndo;
  }
- function clearUndo(){const o=active();if(o?.w)o.w.uxUndoHistory=[];deleteUndo=null}
+ // An uncommitted set deletion stays reversible, even after closing the PWA.
+ function pendingDelete(o){const u=o?.w?.uxLastDeleteUndo;return u?.sessionId===o?.s?.id?u:(deleteUndo?.sessionId===o?.s?.id?deleteUndo:null)}
+ function clearUndo(){const o=active();if(o?.w){o.w.uxUndoHistory=[];delete o.w.uxLastDeleteUndo;}deleteUndo=null}
  window.cfuxUndo=function(){
   const o=active();if(!o)return false;
-  if(deleteUndo?.sessionId===o.s.id)return window.cfuxUndoDelete();
+  if(pendingDelete(o))return window.cfuxUndoDelete();
   const h=o.w.uxUndoHistory||[],u=h.pop();if(!u)return false;
   o.w.uxDay=cf224Clone(u.day);o.w.uxRemoved=cf224Clone(u.removed);o.w.logs=cf224Clone(u.logs);o.w.uxDeferredSlots=cf224Clone(u.deferred);
   const es=o.w.uxDay.exercises||[],pos=es.findIndex(e=>e.slot_id===u.focus.slot);
@@ -119,11 +122,12 @@
   <div class="cfux-exbottom"><button type="button" onclick="cfuxDefer(${x.i})" ${g?'disabled title="Satzgruppe zuerst auflösen"':''}>${isLater?'▶ Jetzt machen':'⏳ Später'}</button><button onclick="cfuxAddSet(${x.i})">＋ Satz</button><button type="button" class="cfux-warmbtn" onclick="cfuxTools.warmup('${cfuxCode(x.name)}',${cf224ExpectedWeight(x)||cfuxTools.workWeightEngine(m,x)})">Aufwärmen</button><button onclick="cfuxMove(${x.i},-1)" ${x.i===0?'disabled':''} aria-label="Nach oben">↑</button><button onclick="cfuxMove(${x.i},1)" ${x.i===m.exercises.length-1?'disabled':''} aria-label="Nach unten">↓</button></div>
   </article>`;
  }
- function workoutScreen(){let o=active();if(!o)return cfuxBaseScreen();let {s,m}=o;const steps=cf232Stages(),done=steps.filter(t=>cf232Done(m,t)).length;
+ function workoutScreen(){let o=active();if(!o)return cfuxBaseScreen();let {s,m}=o;const steps=cf232Stages(),done=steps.filter(t=>cf232Done(m,t)).length,deleted=pendingDelete(o);
   const all=steps.length>0&&done===steps.length;
   return `<div class="cfux-workout"><section class="cfux-top"><div><div class="cfux-kicker">AKTIVES WORKOUT · ${cfuxEsc(m.dayLabel)}</div><h1>${cfuxEsc(m.title)}</h1><p>${done}/${steps.length} Sätze · Änderungen gelten zunächst nur für dieses Workout</p><p class="cfux-swipe-hint">Satz nach links wischen → löschen</p></div><div class="cfux-duration" id="cf21Clock">${fmtDuration(cf21SessionSeconds())}</div></section>
-   ${deleteUndo&&deleteUndo.sessionId===s.id?`<div class="cfux-undo"><span>Satz ${deleteUndo.index+1} entfernt</span><button type="button" onclick="cfuxUndo()">↶ Rückgängig</button></div>`:(o.w.uxUndoHistory?.length?`<div class="cfux-undo"><span>${cfuxEsc(o.w.uxUndoHistory.at(-1).label)}</span><button type="button" onclick="cfuxUndo()">↶ Rückgängig</button></div>`:'')}
-   <div class="cfux-toolbar"><button onclick="${s.status==='paused'?'cf21Resume()':'cf21Pause()'}">${s.status==='paused'?'▶ Fortsetzen':'Ⅱ Pausieren'}</button><button onclick="cf21SessionMenu()">Workout ⋯</button></div>
+   ${deleted?`<div class="cfux-undo cfux-undo-delete" role="status" aria-live="polite"><span>✓ Satz ${deleted.index+1} gelöscht</span><button type="button" onclick="cfuxUndo()" aria-label="Gelöschten Satz wiederherstellen">↶ Rückgängig</button></div>`:(o.w.uxUndoHistory?.length?`<div class="cfux-undo" role="status"><span>${cfuxEsc(o.w.uxUndoHistory.at(-1).label)}</span><button type="button" onclick="cfuxUndo()">↶ Rückgängig</button></div>`:'')}
+   <div class="cfux-toolbar"><button onclick="${s.status==='paused'?'cf21Resume()':'cf21Pause()'}">${s.status==='paused'?'▶ Fortsetzen':'Ⅱ Pausieren'}</button><button type="button" onclick="cfuxManualRest()">⏱ Pausentimer</button><button onclick="cf21SessionMenu()">Workout ⋯</button></div>
+   ${state.settings?.autoRest===false?'<p class="cfux-rest-disabled">Hinweis: Auto-Pausentimer ist in den Einstellungen ausgeschaltet. Manuell über „Pausentimer“ starten.</p>':''}
    ${s.status==='paused'?'<div class="cfux-paused">Workout pausiert – deine Einträge bleiben erhalten.</div>':''}
    ${m.day.exerciseGroups?.map(g=>groupControls(m,g)).join('')||''}
    ${m.exercises.map(x=>exerciseCard(m,x)).join('')}
@@ -140,6 +144,12 @@
   const n=value===''?null:Number(value);if(n!==null&&(!Number.isFinite(n)||n<0||(key==='rir'&&n>4)||(key==='reps'&&!Number.isInteger(n))))return toastMsg('Ungültiger Wert');
   const rec=rowRec(o.m,x,si,side||null);if(n===null&&(side?rec.status==='DONE':rec.ok))return toastMsg('Erledigten Satz erst entsperren oder einen gültigen Wert eingeben.');rec[key]=n;clearUndo();store();
  };
+ window.cfuxManualRest=function(){
+  const o=active();if(!o||o.s.status!=='active')return toastMsg('Workout zuerst fortsetzen.');
+  const x=o.m.exercises[o.s.position]||o.m.exercises[0];
+  const secs=laterality(x?.ex)?Number(cf232Laterality(x.ex)?.restAfterBothSidesSec)||90:Number(x?.rest)||90;
+  cf233B5ManualRest(secs);
+ };
  window.cfuxComplete=function(pos,si,side){let o=active(),x=o?.m.exercises[pos];if(!x||o.s.status!=='active')return toastMsg('Workout zuerst fortsetzen.');
   const log=cf224WorkoutLog(o.m.plan,x.prescriptionKey),z=log.sets[si]||(log.sets[si]={ok:false}),r=side?rowRec(o.m,x,si,side):z;
   const was=side?r.status==='DONE':!!r.ok;
@@ -148,18 +158,31 @@
   if(v.weight===null||v.weight<0||!Number.isFinite(v.weight)||!Number.isInteger(v.reps)||v.reps<=0||!Number.isInteger(v.rir)||v.rir<0||v.rir>4)return toastMsg('Bitte kg, Wiederholungen und RIR gültig eintragen.');
   clearUndo();if(hasDeferred(o,x.ex.slot_id))o.w.uxDeferredSlots=deferred(o).filter(k=>k!==x.ex.slot_id);Object.assign(r,v);if(side){r.status='DONE';r.recordedAt=new Date().toISOString();z.ok=z.sides?.LEFT?.status==='DONE'&&z.sides?.RIGHT?.status==='DONE';z.status=z.ok?'DONE':'PARTIAL';}else z.ok=true;
   store();if(side&&!z.ok){render();return}
-  const steps=cf232Stages(),idx=steps.findIndex(t=>t.position===pos&&t.setIndex===si);if(idx>=0){o.s.cf232Cursor=idx;o.s.position=pos;o.s.setIndex=si;o.s.cf232Side=null;store();cf21AdvanceKpr();}else render();
+  const steps=cf232Stages(),idx=steps.findIndex(t=>t.position===pos&&t.setIndex===si);
+  if(idx>=0){
+   o.s.cf232Cursor=idx;o.s.position=pos;o.s.setIndex=si;o.s.cf232Side=null;store();cf21AdvanceKpr();
+   // The legacy scheduler intentionally returns 0 at solo exercise boundaries.
+   // In the all-sets player a completed solo set should start its prescribed
+   // rest if another set remains. Preserve zero-second transitions inside groups.
+   if(!cf232GroupFor(o.d,x.ex)&&!o.s.cf232Rest&&state.settings?.autoRest!==false&&o.s.status==='active'){
+    const current=cf224Model(o.s.programKey),remaining=cf232Stages().some(t=>!cf232Done(current,t));
+    if(remaining){
+     const secs=laterality(x.ex)?Number(cf232Laterality(x.ex)?.restAfterBothSidesSec)||90:Number(x.rest)||90;
+     if(secs>0)cf232StartRest(secs,'NEXT_EXERCISE');
+    }
+   }
+  }else render();
  };
  window.cfuxAddSet=function(pos){let o=active(),x=o?.m.exercises[pos];if(!x)return; if(x.sets>=30)return toastMsg('Maximal 30 Sätze.');recordUndo(o,'Satz hinzufügen');x.ex.sets=Math.min(30,x.sets+1);swipeOpen=null;store();render()};
- // A swipe only reveals the destructive action. No data is deleted until the
- // clearly labelled button is tapped, and completed / partial sets require consent.
+ // Swipe only reveals an explicit red Delete button. Tapping it deletes the set
+ // (including completed ones) but saves an immediate, persistent session-only undo.
+ // A second native confirm was confusing: "Abbrechen" is NOT "Rückgängig".
  window.cfuxDeleteSet=function(pos,si){
   const o=active(),x=o?.m.exercises[pos];
   if(!x||!Number.isInteger(si)||si<0||si>=x.sets)return false;
   if(x.sets<=1){toastMsg('Mindestens ein Satz muss bleiben.');return false}
   const log=cf224WorkoutLog(o.m.plan,x.prescriptionKey);
   const rec=log?.sets?.[si];
-  if((rec?.ok||rec?.status==='PARTIAL'||rec?.sides?.LEFT?.status==='DONE'||rec?.sides?.RIGHT?.status==='DONE')&&!confirm('Satz '+(si+1)+' ist bereits erfasst. Wirklich löschen?'))return false;
   const oldCount=x.sets;
   const removed=cf224Clone(rec??null);
   const currentSlot=o.d.exercises[o.s.position]?.slot_id;
@@ -176,17 +199,21 @@
   if(ix>=0)o.s.cf232Cursor=ix;
   else if(steps.length){o.s.cf232Cursor=0;o.s.position=steps[0].position;o.s.setIndex=steps[0].setIndex}
   deleteUndo={sessionId:o.s.id,key:x.prescriptionKey,slot:x.ex.slot_id,index:si,record:removed,focus:previousFocus};
+  o.w.uxLastDeleteUndo=cf224Clone(deleteUndo);
   swipeOpen=null;
   const y=window.scrollY;
-  store();render();requestAnimationFrame(()=>window.scrollTo({top:y,left:0,behavior:'instant'}));
+  store();render();requestAnimationFrame(()=>{
+   window.scrollTo({top:y,left:0,behavior:'instant'});
+   document.querySelector('.cfux-undo-delete button')?.focus({preventScroll:true});
+  });
   return true;
  };
  window.cfuxUndoDelete=function(){
-  const o=active(),u=deleteUndo;
-  if(!o||!u||u.sessionId!==o.s.id)return false;
+  const o=active(),u=pendingDelete(o);
+  if(!o||!u)return false;
   const pos=o.d.exercises.findIndex(e=>e.slot_id===u.slot);
   const x=o.m.exercises[pos];
-  if(!x||x.prescriptionKey!==u.key||x.sets>=30){deleteUndo=null;render();return false}
+  if(!x||x.prescriptionKey!==u.key||x.sets>=30){deleteUndo=null;delete o.w.uxLastDeleteUndo;store();render();return false}
   const log=cf224WorkoutLog(o.m.plan,u.key);
   log.sets.splice(u.index,0,cf224Clone(u.record));
   x.ex.sets++;
@@ -195,7 +222,7 @@
   if(u.focus.position===pos){o.s.setIndex=u.focus.setIndex;o.s.cf232Side=u.focus.side}
   const steps=cf232Stages();const ix=steps.findIndex(t=>t.position===o.s.position&&t.setIndex===o.s.setIndex);
   if(ix>=0)o.s.cf232Cursor=ix;
-  deleteUndo=null;swipeOpen=null;
+  deleteUndo=null;delete o.w.uxLastDeleteUndo;swipeOpen=null;
   const y=window.scrollY;store();render();requestAnimationFrame(()=>window.scrollTo({top:y,left:0,behavior:'instant'}));
   return true;
  };
