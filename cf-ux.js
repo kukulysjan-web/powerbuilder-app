@@ -123,8 +123,8 @@
   </article>`;
  }
  function workoutScreen(){let o=active();if(!o)return cfuxBaseScreen();let {s,m}=o;const steps=cf232Stages(),done=steps.filter(t=>cf232Done(m,t)).length,deleted=pendingDelete(o);
-  const all=steps.length>0&&done===steps.length;
-  return `<div class="cfux-workout"><section class="cfux-top"><div><div class="cfux-kicker">AKTIVES WORKOUT · ${cfuxEsc(m.dayLabel)}</div><h1>${cfuxEsc(m.title)}</h1><p>${done}/${steps.length} Sätze · Änderungen gelten zunächst nur für dieses Workout</p><p class="cfux-swipe-hint">Satz nach links wischen → löschen</p></div><div class="cfux-duration" id="cf21Clock">${fmtDuration(cf21SessionSeconds())}</div></section>
+  const logged=m.exercises.reduce((sum,x)=>sum+(cf224WorkoutLog(m.plan,x.prescriptionKey,false)?.sets||[]).slice(0,x.sets).filter(z=>z?.ok).length,0),planned=m.exercises.reduce((sum,x)=>sum+x.sets,0),all=planned>0&&logged===planned&&done===steps.length;
+  return `<div class="cfux-workout"><section class="cfux-top"><div><div class="cfux-kicker">AKTIVES WORKOUT · ${cfuxEsc(m.dayLabel)}</div><h1>${cfuxEsc(m.title)}</h1><p>${logged}/${planned} Sätze · Änderungen gelten zunächst nur für dieses Workout</p><p class="cfux-swipe-hint">Satz nach links wischen → löschen</p></div><div class="cfux-duration" id="cf21Clock">${fmtDuration(cf21SessionSeconds())}</div></section>
    ${deleted?`<div class="cfux-undo cfux-undo-delete" role="status" aria-live="polite"><span>✓ Satz ${deleted.index+1} gelöscht</span><button type="button" onclick="cfuxUndo()" aria-label="Gelöschten Satz wiederherstellen">↶ Rückgängig</button></div>`:(o.w.uxUndoHistory?.length?`<div class="cfux-undo" role="status"><span>${cfuxEsc(o.w.uxUndoHistory.at(-1).label)}</span><button type="button" onclick="cfuxUndo()">↶ Rückgängig</button></div>`:'')}
    <div class="cfux-toolbar"><button onclick="${s.status==='paused'?'cf21Resume()':'cf21Pause()'}">${s.status==='paused'?'▶ Fortsetzen':'Ⅱ Pausieren'}</button><button type="button" onclick="cfuxManualRest()">⏱ Pausentimer</button><button onclick="cf21SessionMenu()">Workout ⋯</button></div>
    ${state.settings?.autoRest===false?'<p class="cfux-rest-disabled">Hinweis: Auto-Pausentimer ist in den Einstellungen ausgeschaltet. Manuell über „Pausentimer“ starten.</p>':''}
@@ -132,7 +132,7 @@
    ${m.day.exerciseGroups?.map(g=>groupControls(m,g)).join('')||''}
    ${m.exercises.map(x=>exerciseCard(m,x)).join('')}
    <div class="cfux-floating"><button class="primary" onclick="cfuxOpenAdd()">＋ Übung hinzufügen</button><button onclick="cfuxGroupSelected()">Supersatz / Gruppe (${selected.size})</button><button onclick="cfuxAllCircuit()">Alle als Zirkel</button></div>
-   <button class="cfux-finish ${all?'primary':''}" onclick="cf21Finish()" ${!all?'disabled':''}>Workout abschließen ${all?'✓':`· noch ${steps.length-done} Sätze`}</button>
+   <button class="cfux-finish primary" onclick="cf21Finish()">${all?'Workout abschließen ✓':`Workout vorzeitig abschließen · ${planned-logged} offen`}</button>
    </div>`;
  }
  const cfuxBaseScreen=cf21GuidedScreen;
